@@ -1,0 +1,14 @@
+{
+  "root": true,
+  "extends": [
+    "eslint:recommended"
+  ],
+  "ignores": [
+    "subgraph/**/*",
+    "**/generated/**/*"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module"
+  }
+} 

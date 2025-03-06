@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  blockscout-frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    env_file:
+      - configs/envs/.env.common
+    container_name: blockscout-frontend
+    restart: unless-stopped 

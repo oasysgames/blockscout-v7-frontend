@@ -1,0 +1,83 @@
+services:
+  graph-node:
+    image: graphprotocol/graph-node:v0.35.1
+    platform: linux/amd64
+    ports:
+      - '8000:8000'
+      - '8001:8001'
+      - '8020:8020'
+      - '8030:8030'
+      - '8040:8040'
+    depends_on:
+      ipfs:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+    environment:
+      postgres_host: postgres
+      postgres_user: graph-node
+      postgres_pass: let-me-in
+      postgres_db: graph-node
+      ipfs: 'http://ipfs:5001'
+      ethereum: 'mainnet:https://rpc.mainnet.oasys.games'
+      # GRAPH_LOG: info
+      # RUST_BACKTRACE: full
+      # GRAPH_ALLOW_NON_DETERMINISTIC_IPFS: 'true'
+      # GRAPH_NODE_OPTIONS: "-Xmx4g"
+      # GRAPH_ETHEREUM_BLOCK_BATCH_SIZE: "10"
+    deploy:
+      resources:
+        limits:
+          memory: 5G
+        reservations:
+          memory: 2G
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - graph-net
+
+  ipfs:
+    image: ipfs/go-ipfs:v0.10.0
+    platform: linux/amd64
+    ports:
+      - '5001:5001'
+    volumes:
+      - ipfs-data:/data/ipfs
+    environment:
+      IPFS_PROFILE: server
+      IPFS_PATH: /data/ipfs
+    networks:
+      - graph-net
+    healthcheck:
+      test: ["CMD", "ipfs", "id"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  postgres:
+    image: postgres
+    ports:
+      - '25432:5432'
+    command: ["postgres", "-cshared_preload_libraries=pg_stat_statements"]
+    environment:
+      POSTGRES_USER: graph-node
+      POSTGRES_PASSWORD: let-me-in
+      POSTGRES_DB: graph-node
+      POSTGRES_INITDB_ARGS: "--locale=C --encoding=UTF8"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - graph-net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U graph-node"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+networks:
+  graph-net:
+    driver: bridge
+
+volumes:
+  postgres-data:
+  ipfs-data: 

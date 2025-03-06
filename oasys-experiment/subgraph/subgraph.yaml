@@ -1,0 +1,243 @@
+specVersion: 0.0.5
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: ChainVerseBridge
+    network: mainnet
+    source:
+      address: "0x24d133Df1d72089809945EC9550f72f8415AC780"
+      abi: BridgeABI
+      startBlock: 0
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - BridgeEvent
+        - DailyBridgeStats
+      abis:
+        - name: BridgeABI
+          file: ./abis/TCGverseBridge.json
+      eventHandlers:
+        - event: ETHDepositInitiated(indexed address,indexed address,uint256,bytes)
+          handler: handleETHDepositInitiated
+        - event: ETHWithdrawalFinalized(indexed address,indexed address,uint256,bytes)
+          handler: handleETHWithdrawalFinalized
+      file: ./src/mapping.ts
+
+  - kind: ethereum
+    name: DefiVerseBridge
+    network: mainnet
+    source:
+      address: "0x0cc5366BE800cf73daB2DBfDE031C255a6f1E3cC"
+      abi: BridgeABI
+      startBlock: 0
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - BridgeEvent
+        - DailyBridgeStats
+      abis:
+        - name: BridgeABI
+          file: ./abis/TCGverseBridge.json
+      eventHandlers:
+        - event: ETHDepositInitiated(indexed address,indexed address,uint256,bytes)
+          handler: handleETHDepositInitiated
+        - event: ETHWithdrawalFinalized(indexed address,indexed address,uint256,bytes)
+          handler: handleETHWithdrawalFinalized
+      file: ./src/mapping.ts
+
+  - kind: ethereum
+    name: GeekVerseBridge
+    network: mainnet
+    source:
+      address: "0x62Ec33Ea441d654008d5E631D11B6A3cb7034e31"
+      abi: BridgeABI
+      startBlock: 0
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - BridgeEvent
+        - DailyBridgeStats
+      abis:
+        - name: BridgeABI
+          file: ./abis/TCGverseBridge.json
+      eventHandlers:
+        - event: ETHDepositInitiated(indexed address,indexed address,uint256,bytes)
+          handler: handleETHDepositInitiated
+        - event: ETHWithdrawalFinalized(indexed address,indexed address,uint256,bytes)
+          handler: handleETHWithdrawalFinalized
+      file: ./src/mapping.ts
+
+  - kind: ethereum
+    name: GesoVerseBridge
+    network: mainnet
+    source:
+      address: "0x9F740B3E8E823E68294eEA69299908E3FdEe1Ea7"
+      abi: BridgeABI
+      startBlock: 0
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - BridgeEvent
+        - DailyBridgeStats
+      abis:
+        - name: BridgeABI
+          file: ./abis/TCGverseBridge.json
+      eventHandlers:
+        - event: ETHDepositInitiated(indexed address,indexed address,uint256,bytes)
+          handler: handleETHDepositInitiated
+        - event: ETHWithdrawalFinalized(indexed address,indexed address,uint256,bytes)
+          handler: handleETHWithdrawalFinalized
+      file: ./src/mapping.ts
+
+  - kind: ethereum
+    name: HOMEVerseBridge
+    network: mainnet
+    source:
+      address: "0x9245e19eB88de2534E03E764FB2a5f194e6d97AD"
+      abi: BridgeABI
+      startBlock: 0
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - BridgeEvent
+        - DailyBridgeStats
+      abis:
+        - name: BridgeABI
+          file: ./abis/TCGverseBridge.json
+      eventHandlers:
+        - event: ETHDepositInitiated(indexed address,indexed address,uint256,bytes)
+          handler: handleETHDepositInitiated
+        - event: ETHWithdrawalFinalized(indexed address,indexed address,uint256,bytes)
+          handler: handleETHWithdrawalFinalized
+      file: ./src/mapping.ts
+
+  - kind: ethereum
+    name: MCHVerseBridge
+    network: mainnet
+    source:
+      address: "0xA16517A9796bAc73eFA7d07269F9818b7978dc2A"
+      abi: BridgeABI
+      startBlock: 0
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - BridgeEvent
+        - DailyBridgeStats
+      abis:
+        - name: BridgeABI
+          file: ./abis/TCGverseBridge.json
+      eventHandlers:
+        - event: ETHDepositInitiated(indexed address,indexed address,uint256,bytes)
+          handler: handleETHDepositInitiated
+        - event: ETHWithdrawalFinalized(indexed address,indexed address,uint256,bytes)
+          handler: handleETHWithdrawalFinalized
+      file: ./src/mapping.ts
+
+  - kind: ethereum
+    name: SaakuruVerseBridge
+    network: mainnet
+    source:
+      address: "0x4FfA6d5745C2E78361ae91a36312524284F3D812"
+      abi: BridgeABI
+      startBlock: 0
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - BridgeEvent
+        - DailyBridgeStats
+      abis:
+        - name: BridgeABI
+          file: ./abis/TCGverseBridge.json
+      eventHandlers:
+        - event: ETHDepositInitiated(indexed address,indexed address,uint256,bytes)
+          handler: handleETHDepositInitiated
+        - event: ETHWithdrawalFinalized(indexed address,indexed address,uint256,bytes)
+          handler: handleETHWithdrawalFinalized
+      file: ./src/mapping.ts
+
+  - kind: ethereum
+    name: TCGVerseBridge
+    network: mainnet
+    source:
+      address: "0xa34a85ecb19c88d4965EcAfB10019E63050a1098"
+      abi: BridgeABI
+      startBlock: 0
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - BridgeEvent
+        - DailyBridgeStats
+      abis:
+        - name: BridgeABI
+          file: ./abis/TCGverseBridge.json
+      eventHandlers:
+        - event: ETHDepositInitiated(indexed address,indexed address,uint256,bytes)
+          handler: handleETHDepositInitiated
+        - event: ETHWithdrawalFinalized(indexed address,indexed address,uint256,bytes)
+          handler: handleETHWithdrawalFinalized
+      file: ./src/mapping.ts
+
+  - kind: ethereum
+    name: XPLAVerseBridge
+    network: mainnet
+    source:
+      address: "0x80d7aAB75B4144AF77E04C1A334e7236Be4771d0"
+      abi: BridgeABI
+      startBlock: 0
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - BridgeEvent
+        - DailyBridgeStats
+      abis:
+        - name: BridgeABI
+          file: ./abis/TCGverseBridge.json
+      eventHandlers:
+        - event: ETHDepositInitiated(indexed address,indexed address,uint256,bytes)
+          handler: handleETHDepositInitiated
+        - event: ETHWithdrawalFinalized(indexed address,indexed address,uint256,bytes)
+          handler: handleETHWithdrawalFinalized
+      file: ./src/mapping.ts
+
+  - kind: ethereum
+    name: YooldoVerseBridge
+    network: mainnet
+    source:
+      address: "0xf6944626a2EA29615e05f3AC9Ab2568e8E004e9D"
+      abi: BridgeABI
+      startBlock: 0
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - BridgeEvent
+        - DailyBridgeStats
+      abis:
+        - name: BridgeABI
+          file: ./abis/TCGverseBridge.json
+      eventHandlers:
+        - event: ETHDepositInitiated(indexed address,indexed address,uint256,bytes)
+          handler: handleETHDepositInitiated
+        - event: ETHWithdrawalFinalized(indexed address,indexed address,uint256,bytes)
+          handler: handleETHWithdrawalFinalized
+      file: ./src/mapping.ts 

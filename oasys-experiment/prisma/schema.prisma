@@ -1,0 +1,35 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Block {
+  id        Int      @id
+  hash      String   @unique
+  timestamp DateTime
+  data      Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model BridgeTransaction {
+  id          String   @id // transaction hash
+  fromChain   String   // "L1" or "L2"
+  toChain     String   // "L1" or "L2"
+  amount      String   // BigInt as String
+  sender      String   // sender address
+  timestamp   DateTime
+  blockNumber Int
+  network     String   // "TCGverse"
+  status      String   // "COMPLETED"
+  token       String   // "OAS"
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([network])
+  @@index([fromChain, toChain])
+} 
