@@ -16,6 +16,8 @@ const moduleExports = {
     'react-syntax-highlighter',
     'swagger-client',
     'swagger-ui-react',
+    'lottie-react',
+    'lottie-web'
   ],
   reactStrictMode: true,
   webpack(config) {
@@ -25,7 +27,12 @@ const moduleExports = {
         use: [ '@svgr/webpack' ],
       },
     );
-    config.resolve.fallback = { fs: false, net: false, tls: false };
+    config.resolve.fallback = { 
+      fs: false, 
+      net: false, 
+      tls: false,
+      document: false 
+    };
     config.externals.push('pino-pretty', 'lokijs', 'encoding');
 
     return config;
@@ -44,6 +51,9 @@ const moduleExports = {
       dynamic: 30,
       'static': 180,
     },
+  },
+  images: {
+    domains: ['oasys-blockscout.s3.ap-northeast-1.amazonaws.com'],
   },
 };
 

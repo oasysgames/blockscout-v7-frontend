@@ -1,7 +1,6 @@
 import fs from 'fs';
 import path from 'path';
 
-/* eslint-disable no-console */
 const PRESETS = {
   arbitrum: 'https://arbitrum.blockscout.com',
   arbitrum_sepolia: 'https://arbitrum-sepolia.blockscout.com',

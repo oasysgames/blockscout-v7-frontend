@@ -51,7 +51,7 @@ export default function useProvider() {
     const providers = Array.isArray(window.ethereum.providers) ? window.ethereum.providers : [ window.ethereum ];
 
     for (const wallet of feature.wallets) {
-      const provider = providers.find((provider) => {
+      const provider = providers.find((provider: WalletProvider) => {
         return (
           // some wallets (e.g TokenPocket, Liquality, etc) try to look like MetaMask but they are not (not even close)
           // so we have to check in addition the presence of the provider._events property

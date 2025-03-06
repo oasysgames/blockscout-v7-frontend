@@ -54,7 +54,7 @@ const TopBarStats = () => {
       fontSize="xs"
       fontWeight={ 500 }
     >
-      { data?.coin_price && (
+      { data?.coin_price && !config.verse.coinPrice.isDisabled && (
         <Flex columnGap={ 1 }>
           <Skeleton isLoaded={ !isPlaceholderData }>
             <chakra.span color="text_secondary">{ config.chain.currency.symbol } </chakra.span>

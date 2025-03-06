@@ -1,0 +1,41 @@
+type BridgeEvent @entity {
+  id: ID!
+  verseId: String!
+  chainName: String!
+  eventType: String!
+  from: Bytes!
+  to: Bytes!
+  amount: BigInt!
+  timestamp: BigInt!
+  blockNumber: BigInt!
+  transactionHash: Bytes!
+  extraData: Bytes!
+}
+
+type DailyBridgeStat @entity {
+  id: ID!
+  verseId: String!
+  chainName: String!
+  date: String!
+  eventType: String!
+  total_amount: BigInt!
+  accumulated_amount: BigInt!
+  count: BigInt!
+  blockTime: BigInt!
+}
+
+type VerseLatestAccumulatedAmount @entity {
+  id: ID! # verseId
+  amount: BigInt!
+  timestamp: BigInt!
+}
+
+type VerseInfo @entity {
+  id: ID!
+  verseName: String!
+  verseChain: String!
+  verseRpc: String!
+  bridgeAddress: Bytes!
+  isActive: Boolean!
+  lastUpdated: BigInt!
+} 

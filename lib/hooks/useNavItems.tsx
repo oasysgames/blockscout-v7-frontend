@@ -301,6 +301,18 @@ export default function useNavItems(): ReturnType {
         isActive: otherNavItems.flat().some(item => isInternalItem(item) && item.isActive),
         subItems: otherNavItems,
       },
+      config.verse.bridge.isVisible ? {
+        text: 'Bridge',
+        nextRoute: { pathname: '/bridge' as const },
+        icon: 'bridge',
+        isActive: pathname.startsWith('/bridge'),
+      } : null,
+      config.verse.experiment.isVisible ? {
+        text: 'Experiment',
+        nextRoute: { pathname: '/experiment' as const },
+        icon: 'experiment',
+        isActive: pathname.startsWith('/experiment'),
+      } : null,
     ].filter(Boolean);
 
     const accountNavItems: ReturnType['accountNavItems'] = [

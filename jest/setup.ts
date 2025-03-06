@@ -28,7 +28,6 @@ Object.defineProperty(window, '__envs', {
   value: envs.parsed || {},
 });
 
-// eslint-disable-next-line no-console
 const consoleError = console.error;
 
 global.console = {

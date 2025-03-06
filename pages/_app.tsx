@@ -5,6 +5,8 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import type { AppProps } from 'next/app';
 import React from 'react';
 
+import 'styles/output.css';
+
 import type { NextPageWithLayout } from 'nextjs/types';
 
 import config from 'configs/app';

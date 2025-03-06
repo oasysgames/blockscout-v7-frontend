@@ -31,6 +31,7 @@ export type Props = {
   emptyText?: string;
   noAnimation?: boolean;
   href?: Route;
+  valueFormatter?: (value: number) => string;
 };
 
 const ChartWidget = ({
@@ -44,6 +45,7 @@ const ChartWidget = ({
   emptyText,
   noAnimation,
   href,
+  valueFormatter,
 }: Props) => {
   const ref = useRef<HTMLDivElement>(null);
   const { zoomRange, handleZoom, handleZoomReset } = useZoom();
@@ -63,6 +65,7 @@ const ChartWidget = ({
       handleZoom={ handleZoom }
       zoomRange={ zoomRange }
       noAnimation={ noAnimation }
+      valueFormatter={ valueFormatter }
     />
   );
 

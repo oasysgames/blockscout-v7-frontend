@@ -16,7 +16,10 @@ export function set(props: Partial<UserProfileProperties>) {
 }
 
 export function setOnce(props: Partial<UserProfileProperties>) {
-  mixpanel.people.set_once(props);
+  // people is only filled if mixpanel is enabled
+  if (mixpanel.people) {
+    mixpanel.people.set_once(props);
+  }
 }
 
 export function increment(props: UserProfilePropertiesNumerable) {

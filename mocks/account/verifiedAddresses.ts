@@ -40,7 +40,7 @@ export const ADDRESS_CHECK_RESPONSE = {
   SUCCESS: {
     status: 'SUCCESS',
     result: {
-      // eslint-disable-next-line max-len
+
       signingMessage: '[eth-goerli.blockscout.com] [2023-04-18 18:47:40] I, hereby verify that I am the owner/creator of the address [0xf822070d07067d1519490dbf49448a7e30ee9ea5]',
       contractCreator: '0xd0e3010d1ecdbd17aae178b2bf36eb413d8a7441',
       contractOwner: '0xa8FCe579a11E551635b9c9CB915BEcd873C51254',
