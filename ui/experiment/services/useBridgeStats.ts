@@ -2,13 +2,16 @@ import { useState, useEffect } from 'react';
 import { GraphQLClient } from 'graphql-request';
 import type { DailyBridgeStat, BridgeStatsResponse } from './types';
 import { DAILY_STATS_QUERY } from './types';
+import { getEnvValue } from 'configs/app/utils';
 
 const createClient = () => {
-  const baseUrl = typeof window !== 'undefined' ? window.location.origin : '';
-  const url = `${baseUrl}/experiment/api/experiment-graphql/`;
+  const url = getEnvValue('NEXT_PUBLIC_EXPERIMENT_API_URL');
   
+  if (!url) {
+    throw new Error('NEXT_PUBLIC_EXPERIMENT_API_URL is not defined');
+  }
+
   console.log('Creating GraphQL client', {
-    baseUrl,
     url
   });
   
@@ -74,11 +77,11 @@ export const useBridgeStats = ({
         let filteredData = response.dailyBridgeStats;
 
         if (chainFilter !== 'all') {
-          filteredData = filteredData.filter(item => item.chainName === chainFilter);
+          filteredData = filteredData.filter((item: DailyBridgeStat) => item.chainName === chainFilter);
         }
 
         if (eventTypeFilter !== 'all') {
-          filteredData = filteredData.filter(item => item.eventType === eventTypeFilter);
+          filteredData = filteredData.filter((item: DailyBridgeStat) => item.eventType === eventTypeFilter);
         }
 
         setData(filteredData);
