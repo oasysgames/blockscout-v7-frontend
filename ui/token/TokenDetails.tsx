@@ -89,6 +89,12 @@ const TokenDetails = ({ tokenQuery }: Props) => {
   } = tokenQuery.data || {};
 
   let totalSupplyValue;
+  let symbolTxt = symbol;
+  // in case tokens is updated name
+  const updatedAddress = config.verse.tokens.updatedAddress.toLowerCase();
+  if (updatedAddress.length > 0 && tokenQuery.data?.address.toLowerCase().includes(updatedAddress)) {
+    symbolTxt = config.verse.tokens.updatedSymbol;
+  }
 
   if (decimals) {
     const totalValue = totalSupply ? getCurrencyValue({ value: totalSupply, accuracy: 3, accuracyUsd: 2, exchangeRate, decimals }) : undefined;
@@ -149,7 +155,7 @@ const TokenDetails = ({ tokenQuery }: Props) => {
         <Skeleton isLoaded={ !tokenQuery.isPlaceholderData } w="100%" display="flex">
           <TruncatedValue value={ totalSupplyValue || '0' } maxW="80%" flexShrink={ 0 }/>
           <Box flexShrink={ 0 }> </Box>
-          <TruncatedValue value={ symbol || '' }/>
+          <TruncatedValue value={ symbolTxt || '' }/>
         </Skeleton>
       </DetailsInfoItem.Value>
 

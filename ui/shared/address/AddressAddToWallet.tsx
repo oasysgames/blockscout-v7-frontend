@@ -32,6 +32,13 @@ const AddressAddToWallet = ({ className, token, isLoading, variant = 'icon', ico
       return;
     }
 
+    let symbol = token.symbol;
+    // in case tokens is updated name
+    const updatedAddress = config.verse.tokens.updatedAddress.toLowerCase();
+    if (updatedAddress.length > 0 && token.address.toLowerCase().includes(updatedAddress)) {
+      symbol = config.verse.tokens.updatedSymbol;
+    }
+    
     try {
       // switch to the correct network otherwise the token will be added to the wrong one
       await addOrSwitchChain();
@@ -42,7 +49,7 @@ const AddressAddToWallet = ({ className, token, isLoading, variant = 'icon', ico
           type: 'ERC20', // Initially only supports ERC20, but eventually more!
           options: {
             address: token.address,
-            symbol: token.symbol || '',
+            symbol: symbol || '',
             decimals: Number(token.decimals) || 18,
             image: token.icon_url || '',
           },
@@ -62,7 +69,7 @@ const AddressAddToWallet = ({ className, token, isLoading, variant = 'icon', ico
         mixpanel.logEvent(mixpanel.EventTypes.ADD_TO_WALLET, {
           Target: 'token',
           Wallet: wallet,
-          Token: token.symbol || '',
+          Token: symbol || '',
         });
       }
     } catch (error) {

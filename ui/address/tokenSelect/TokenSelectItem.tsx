@@ -4,6 +4,7 @@ import React from 'react';
 
 import { route } from 'nextjs-routes';
 
+import config from 'configs/app';
 import getCurrencyValue from 'lib/getCurrencyValue';
 import TokenEntity from 'ui/shared/entities/token/TokenEntity';
 import LinkInternal from 'ui/shared/links/LinkInternal';
@@ -16,12 +17,18 @@ interface Props {
 }
 
 const TokenSelectItem = ({ data }: Props) => {
+  let symbol = data.token.symbol;
+  // in case tokens is updated name
+  const updatedAddress = config.verse.tokens.updatedAddress.toLowerCase();
+  if (updatedAddress.length > 0 && data.token.address.toLowerCase().includes(updatedAddress)) {
+    symbol = config.verse.tokens.updatedSymbol;
+  }
 
   const secondRow = (() => {
     switch (data.token.type) {
       case 'ERC-20': {
         const tokenDecimals = Number(data.token.decimals) || 18;
-        const text = `${ BigNumber(data.value).dividedBy(10 ** tokenDecimals).dp(8).toFormat() } ${ data.token.symbol || '' }`;
+        const text = `${ BigNumber(data.value).dividedBy(10 ** tokenDecimals).dp(8).toFormat() } ${ symbol || '' }`;
 
         return (
           <>
@@ -31,7 +38,7 @@ const TokenSelectItem = ({ data }: Props) => {
         );
       }
       case 'ERC-721': {
-        const text = `${ BigNumber(data.value).toFormat() } ${ data.token.symbol || '' }`;
+        const text = `${ BigNumber(data.value).toFormat() } ${ symbol || '' }`;
         return <TruncatedValue value={ text }/>;
       }
       case 'ERC-1155': {
