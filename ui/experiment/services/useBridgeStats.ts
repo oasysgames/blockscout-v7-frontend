@@ -10,10 +10,6 @@ const createClient = () => {
   if (!url) {
     throw new Error('NEXT_PUBLIC_EXPERIMENT_API_URL is not defined');
   }
-
-  console.log('Creating GraphQL client', {
-    url
-  });
   
   return new GraphQLClient(url, {
     headers: {

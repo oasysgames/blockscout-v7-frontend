@@ -3,6 +3,7 @@ import React from 'react';
 
 import type { TokenTransfer } from 'types/api/tokenTransfer';
 
+import config from 'configs/app';
 import getCurrencyValue from 'lib/getCurrencyValue';
 import { NFT_TOKEN_TYPE_IDS } from 'lib/token/tokenTypes';
 import AddressFromTo from 'ui/shared/address/AddressFromTo';
@@ -27,6 +28,13 @@ const TokenTransferListItem = ({
   tokenId,
   isLoading,
 }: Props) => {
+  let symbol = token?.symbol;
+  // in case tokens is updated name
+  const updatedAddress = config.verse.tokens.updatedAddress.toLowerCase();
+  if (updatedAddress.length > 0 && token?.address.toLowerCase().includes(updatedAddress)) {
+    symbol = config.verse.tokens.updatedSymbol;
+  }
+
   const { usd, valueStr } = total && 'value' in total && total.value !== null ? getCurrencyValue({
     value: total.value,
     exchangeRate: token?.exchange_rate,
@@ -77,7 +85,7 @@ const TokenTransferListItem = ({
           >
             <span>{ valueStr }</span>
           </Skeleton>
-          { token.symbol && <TruncatedValue isLoading={ isLoading } value={ token.symbol }/> }
+          { symbol && <TruncatedValue isLoading={ isLoading } value={ symbol }/> }
           { usd && (
             <Skeleton
               isLoaded={ !isLoading }

@@ -6,6 +6,7 @@ import type { TokenInfo } from 'types/api/token';
 
 import { route } from 'nextjs-routes';
 
+import config from 'configs/app';
 import Skeleton from 'ui/shared/chakra/Skeleton';
 import * as EntityBase from 'ui/shared/entities/base/components';
 import TokenLogoPlaceholder from 'ui/shared/TokenLogoPlaceholder';
@@ -61,10 +62,19 @@ const Icon = (props: IconProps) => {
 type ContentProps = Omit<EntityBase.ContentBaseProps, 'text'> & Pick<EntityProps, 'token' | 'jointSymbol' | 'onlySymbol'>;
 
 const Content = chakra((props: ContentProps) => {
+  let symbol = props.token.symbol;
+  let tokenName = props.token.name;
+  // in case tokens is updated name
+  const updatedAddress = config.verse.tokens.updatedAddress.toLowerCase();
+  if (updatedAddress.length > 0 && props.token.address.toLowerCase().includes(updatedAddress)) {
+    tokenName = config.verse.tokens.updatedName;
+    symbol = config.verse.tokens.updatedSymbol;
+  }
+
   const nameString = [
-    !props.onlySymbol && (props.token.name ?? 'Unnamed token'),
-    props.onlySymbol && (props.token.symbol ?? props.token.name ?? 'Unnamed token'),
-    props.token.symbol && props.jointSymbol && !props.onlySymbol && `(${ props.token.symbol })`,
+    !props.onlySymbol && (tokenName ?? 'Unnamed token'),
+    props.onlySymbol && (symbol ?? tokenName ?? 'Unnamed token'),
+    symbol && props.jointSymbol && !props.onlySymbol && `(${ symbol })`,
   ].filter(Boolean).join(' ');
 
   return (
@@ -86,8 +96,13 @@ const Content = chakra((props: ContentProps) => {
 type SymbolProps = Pick<EntityProps, 'token' | 'isLoading' | 'noSymbol' | 'jointSymbol' | 'onlySymbol'>;
 
 const Symbol = (props: SymbolProps) => {
-  const symbol = props.token.symbol;
-
+  let symbol = props.token.symbol;
+  // in case tokens is updated name
+  const updatedAddress = config.verse.tokens.updatedAddress.toLowerCase();
+  if (updatedAddress.length > 0 && props.token.address.toLowerCase().includes(updatedAddress)) {
+    symbol = config.verse.tokens.updatedSymbol;
+  }
+  
   if (!symbol || props.noSymbol || props.jointSymbol || props.onlySymbol) {
     return null;
   }

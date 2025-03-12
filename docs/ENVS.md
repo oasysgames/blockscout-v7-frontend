@@ -948,3 +948,11 @@ This feature allows you to display a custom alert banner in the header of the ap
 | `NEXT_PUBLIC_HEADER_ALERT_ENABLED` | `boolean` | Set to `true` to enable the header alert banner | Required | `false` | `true` | v1.36.0+ |
 | `NEXT_PUBLIC_HEADER_ALERT_EXPLORER_URL` | `string` | URL that the "Explorer" link in the banner will redirect to when clicked | Optional | `#` | `https://example.com` | v1.36.x+ |
 | `NEXT_PUBLIC_HEADER_ALERT_DISCORD_URL` | `string` | URL that the "Discord" link in the banner will redirect to when clicked | Optional | `#` | `https://discord.com` | v1.36.x+ |
+&nbsp;
+
+### Verse token configuration
+| Variable | Type| Description | Compulsoriness  | Default value | Example value | Version |
+| --- | --- | --- | --- | --- | --- | --- |
+| NEXT_PUBLIC_TOKENS_UPDATED_ADDRESS | `string` | Set the address if the token has changed | - | `` | `0xDeadDeAddeAddEAddeadDEaDDEAdDeaDDeAD0000` | v6.7.x+ |
+| NEXT_PUBLIC_TOKENS_UPDATED_NAME | `string` | Set the token name if the token has changed | - | `Oasys` | `` | v6.7.x+ |
+| NEXT_PUBLIC_TOKENS_UPDATED_SYMBOL | `string` | Set the token symbol if the token has changed | - | `OAS` | `` | v6.7.x+ |
