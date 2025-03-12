@@ -140,10 +140,19 @@ const TokenPageTitle = ({ tokenQuery, addressQuery, hash }: Props) => {
     </Flex>
   );
 
+  let symbolTxt = tokenSymbolText;
+  let tokenName = tokenQuery.data?.name || 'Unnamed token';
+  const updatedAddress = config.verse.tokens.updatedAddress.toLowerCase();
+
+  if (updatedAddress.length > 0 && tokenQuery.data?.address.toLowerCase().includes(updatedAddress)) {
+    symbolTxt = ' (' + config.verse.tokens.updatedSymbol + ')';
+    tokenName = config.verse.tokens.updatedName;
+  }
+
   return (
     <>
       <PageTitle
-        title={ `${ tokenQuery.data?.name || 'Unnamed token' }${ tokenSymbolText }` }
+        title={ `${ tokenName || 'Unnamed token' }${ symbolTxt }` }
         isLoading={ tokenQuery.isPlaceholderData }
         backLink={ backLink }
         beforeTitle={ tokenQuery.data ? (
