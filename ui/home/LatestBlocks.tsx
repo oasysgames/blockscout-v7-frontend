@@ -54,7 +54,7 @@ const LatestBlocks = () => {
       }
 
       // In case there is 1 tx of op-node, it will not appear
-      if (config.verse.opNode.isHiddenTxs && payload.block.tx_count <= 1) {
+      if (config.verse.opNode.isHiddenTxs && payload.block.transaction_count <= 1) {
         return newData;
       }
       
