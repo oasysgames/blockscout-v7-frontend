@@ -756,6 +756,7 @@ const schema = yup
       ),
     NEXT_PUBLIC_HOMEPAGE_PLATE_TEXT_COLOR: yup.string(),
     NEXT_PUBLIC_HOMEPAGE_PLATE_BACKGROUND: yup.string(),
+    NEXT_PUBLIC_HOMEPAGE_HIDDEN_OP_NODE_TXS: yup.boolean(),
     NEXT_PUBLIC_HOMEPAGE_HERO_BANNER_CONFIG: yup
       .mixed()
       .test(

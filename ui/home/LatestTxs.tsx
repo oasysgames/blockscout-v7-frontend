@@ -3,9 +3,11 @@ import React from 'react';
 
 import { route } from 'nextjs-routes';
 
+import config from 'configs/app';
 import useApiQuery from 'lib/api/useApiQuery';
 import { AddressHighlightProvider } from 'lib/contexts/addressHighlight';
 import useIsMobile from 'lib/hooks/useIsMobile';
+import useNewHomeTxsSocket from 'lib/hooks/useNewHomeTxsSocket';
 import useNewTxsSocket from 'lib/hooks/useNewTxsSocket';
 import { TX } from 'stubs/tx';
 import LinkInternal from 'ui/shared/links/LinkInternal';
@@ -23,8 +25,11 @@ const LatestTransactions = () => {
     },
   });
 
-  const { num, socketAlert } = useNewTxsSocket();
-
+  const homeTxsSocket = useNewHomeTxsSocket();
+  const newTxsSocket = useNewTxsSocket();
+  // in case don't want to show tx of op-node
+  const { num, socketAlert } = config.verse.opNode.isHiddenTxs ? homeTxsSocket : newTxsSocket;
+  
   if (isError) {
     return <Text mt={ 4 }>No data. Please reload the page.</Text>;
   }
