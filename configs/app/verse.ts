@@ -7,7 +7,7 @@ export default Object.freeze({
     isHiddenTxs: getEnvValue('NEXT_PUBLIC_HOMEPAGE_HIDDEN_OP_NODE_TXS') === 'true',
   },
   tokens: {
-    updatedAddress: getEnvValue('NEXT_PUBLIC_TOKENS_UPDATED_ADDRESS') || '',
+    updatedAddress: getEnvValue('NEXT_PUBLIC_TOKENS_UPDATED_ADDRESS') || '0xDeadDeAddeAddEAddeadDEaDDEAdDeaDDeAD0000',
     updatedName: getEnvValue('NEXT_PUBLIC_TOKENS_UPDATED_NAME') || 'Oasys',
     updatedSymbol: getEnvValue('NEXT_PUBLIC_TOKENS_UPDATED_SYMBOL') || 'OAS',
   },

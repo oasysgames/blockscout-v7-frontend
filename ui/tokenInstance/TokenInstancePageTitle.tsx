@@ -3,6 +3,7 @@ import React from 'react';
 
 import type { TokenInfo, TokenInstance } from 'types/api/token';
 
+import config from 'configs/app';
 import { useAppContext } from 'lib/contexts/app';
 import * as regexp from 'lib/regexp';
 import { getTokenTypeName } from 'lib/token/tokenTypes';
@@ -34,7 +35,15 @@ const TokenInstancePageTitle = ({ isLoading, token, instance, hash }: Props) => 
     }
 
     if (token?.name || token?.symbol) {
-      return (token.name || token.symbol) + ' #' + instance.id;
+      let symbol = token.symbol;
+      let tokenName = token.name;
+      // in case tokens is updated name
+      const updatedAddress = config.verse.tokens.updatedAddress.toLowerCase();
+      if (updatedAddress.length > 0 && token.address.toLowerCase().includes(updatedAddress)) {
+        tokenName = config.verse.tokens.updatedName;
+        symbol = config.verse.tokens.updatedSymbol;
+      }
+      return (tokenName || symbol) + ' #' + instance.id;
     }
 
     return `ID ${ instance.id }`;

@@ -4,6 +4,7 @@ import React from 'react';
 import type { ItemsProps } from './types';
 import type { SearchResultAddressOrContract, SearchResultMetadataTag } from 'types/api/search';
 
+import config from 'configs/app';
 import { toBech32Address } from 'lib/address/bech32';
 import dayjs from 'lib/date/dayjs';
 import highlightText from 'lib/highlightText';
@@ -31,7 +32,12 @@ const SearchBarSuggestAddress = ({ data, isMobile, searchTerm, addressFormat }: 
       }}
     />
   );
-  const addressName = data.name || data.ens_info?.name;
+  let addressName = data.name || data.ens_info?.name;
+  // in case tokens is updated name
+  const updatedAddress = config.verse.tokens.updatedAddress.toLowerCase();
+  if (updatedAddress.length > 0 && data.address.toLowerCase().includes(updatedAddress)) {
+    addressName = config.verse.tokens.updatedName;
+  }
   const expiresText = data.ens_info?.expiry_date ? ` (expires ${ dayjs(data.ens_info.expiry_date).fromNow() })` : '';
 
   const nameEl = addressName && (

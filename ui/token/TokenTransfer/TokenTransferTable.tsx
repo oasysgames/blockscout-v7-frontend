@@ -4,6 +4,7 @@ import React from 'react';
 import type { TokenInfo } from 'types/api/token';
 import type { TokenTransfer } from 'types/api/tokenTransfer';
 
+import config from 'configs/app';
 import { AddressHighlightProvider } from 'lib/contexts/addressHighlight';
 import { NFT_TOKEN_TYPE_IDS } from 'lib/token/tokenTypes';
 import * as SocketNewItemsNotice from 'ui/shared/SocketNewItemsNotice';
@@ -25,6 +26,12 @@ interface Props {
 const TokenTransferTable = ({ data, top, showSocketInfo, socketInfoAlert, socketInfoNum, tokenId, isLoading, token }: Props) => {
 
   const tokenType = token.type;
+  let symbol = token?.symbol;
+  // in case tokens is updated name
+  const updatedAddress = config.verse.tokens.updatedAddress.toLowerCase();
+  if (updatedAddress.length > 0 && token?.address.toLowerCase().includes(updatedAddress)) {
+    symbol = config.verse.tokens.updatedSymbol;
+  }
 
   return (
     <AddressHighlightProvider>
@@ -39,7 +46,7 @@ const TokenTransferTable = ({ data, top, showSocketInfo, socketInfoAlert, socket
             }
             { (tokenType === 'ERC-20' || tokenType === 'ERC-1155' || tokenType === 'ERC-404') && (
               <Th width={ tokenType === 'ERC-20' ? '100%' : '50%' } isNumeric>
-                <TruncatedValue value={ `Value ${ token?.symbol || '' }` } w="100%" verticalAlign="middle"/>
+                <TruncatedValue value={ `Value ${ symbol || '' }` } w="100%" verticalAlign="middle"/>
               </Th>
             ) }
           </Tr>
