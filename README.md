@@ -1,36 +1,48 @@
-<h1 align="center">Blockscout frontend</h1>
+<h1 align="center">Blockscout</h1>
+<p align="center">Blockchain Explorer for inspecting and analyzing EVM Chains.</p>
+<div align="center">
 
-<p align="center">
-    <span>Frontend application for </span>
-    <a href="https://github.com/blockscout/blockscout/blob/master/README.md">Blockscout</a>
-    <span> blockchain explorer</span>
-</p>
+[![Blockscout](https://github.com/blockscout/blockscout/workflows/Blockscout/badge.svg?branch=master)](https://github.com/blockscout/blockscout/actions)
+[![](https://dcbadge.vercel.app/api/server/blockscout?style=flat)](https://discord.gg/blockscout)
 
-## Running and configuring the app
+</div>
 
-App is distributed as a docker image. Here you can find information about the [package](https://github.com/blockscout/frontend/pkgs/container/frontend) and its recent [releases](https://github.com/blockscout/frontend/releases).
 
-You can configure your app by passing necessary environment variables when starting the container. See full list of ENVs and their description [here](./docs/ENVS.md).
+Blockscout provides a comprehensive, easy-to-use interface for users to view, confirm, and inspect transactions on EVM (Ethereum Virtual Machine) blockchains. This includes Ethereum Mainnet, Ethereum Classic, Optimism, Gnosis Chain and many other **Ethereum testnets, private networks, L2s and sidechains**.
 
-```sh
-docker run -p 3000:3000 --env-file <path-to-your-env-file> ghcr.io/blockscout/frontend:latest
-```
+See our [project documentation](https://docs.blockscout.com/) for detailed information and setup instructions.
 
-Alternatively, you can build your own docker image and run your app from that. Please follow this [guide](./docs/CUSTOM_BUILD.md).
+For questions, comments and feature requests see the [discussions section](https://github.com/blockscout/blockscout/discussions) or via [Discord](https://discord.com/invite/blockscout).
 
-For more information on migrating from the previous frontend, please see the [frontend migration docs](https://docs.blockscout.com/for-developers/frontend-migration).
+## About Blockscout
+
+Blockscout allows users to search transactions, view accounts and balances, verify and interact with smart contracts and view and interact with applications on the Ethereum network including many forks, sidechains, L2s and testnets.
+
+Blockscout is an open-source alternative to centralized, closed source block explorers such as Etherscan, Etherchain and others.  As Ethereum sidechains and L2s continue to proliferate in both private and public settings, transparent, open-source tools are needed to analyze and validate all transactions.
+
+## Supported Projects
+
+Blockscout currently supports several hundred chains and rollups throughout the greater blockchain ecosystem. Ethereum, Cosmos, Polkadot, Avalanche, Near and many others include Blockscout integrations. A comprehensive list is available at [chains.blockscout.com](https://chains.blockscout.com). If your project is not listed, contact the team in [Discord](https://discord.com/invite/blockscout).
+
+## Getting Started
+
+See the [project documentation](https://docs.blockscout.com/) for instructions:
+
+- [Manual deployment](https://docs.blockscout.com/for-developers/deployment/manual-deployment-guide)
+- [Docker-compose deployment](https://docs.blockscout.com/for-developers/deployment/docker-compose-deployment)
+- [Kubernetes deployment](https://docs.blockscout.com/for-developers/deployment/kubernetes-deployment)
+- [Manual deployment (backend + old UI)](https://docs.blockscout.com/for-developers/deployment/manual-old-ui)
+- [Ansible deployment](https://docs.blockscout.com/for-developers/ansible-deployment)
+- [ENV variables](https://docs.blockscout.com/setup/env-variables)
+- [Configuration options](https://docs.blockscout.com/for-developers/configuration-options)
+
+## Acknowledgements
+
+We would like to thank the EthPrize foundation for their funding support.
 
 ## Contributing
 
-See our [Contribution guide](./docs/CONTRIBUTING.md) for pull request protocol. We expect contributors to follow our [code of conduct](./CODE_OF_CONDUCT.md) when submitting code or comments.
-
-## Resources
-- [App ENVs list](./docs/ENVS.md)
-- [Contribution guide](./docs/CONTRIBUTING.md)
-- [Making a custom build](./docs/CUSTOM_BUILD.md)
-- [Frontend migration guide](https://docs.blockscout.com/for-developers/frontend-migration)
-- [Manual deployment guide with backend and microservices](https://docs.blockscout.com/for-developers/deployment/manual-deployment-guide)
-- [Oasys Chain deployment guide](./docs/OASYS_DEPLOYMENT.md)
+See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution and pull request protocol. We expect contributors to follow our [code of conduct](CODE_OF_CONDUCT.md) when submitting code or comments.
 
 ## License
 
