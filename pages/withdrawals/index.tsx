@@ -7,6 +7,7 @@ import PageNextJs from 'nextjs/PageNextJs';
 import config from 'configs/app';
 const rollupFeature = config.features.rollup;
 const beaconChainFeature = config.features.beaconChain;
+const experiment = config.verse.experiment;
 
 const Withdrawals = dynamic(() => {
   if (rollupFeature.isEnabled && rollupFeature.type === 'optimistic') {
@@ -27,6 +28,10 @@ const Withdrawals = dynamic(() => {
 
   if (rollupFeature.isEnabled && rollupFeature.type === 'scroll') {
     return import('ui/pages/ScrollL2Withdrawals');
+  }
+
+  if (beaconChainFeature.isEnabled && experiment.api) {
+    return import('ui/pages/OasysL1ChainWithdrawals');
   }
 
   if (beaconChainFeature.isEnabled) {

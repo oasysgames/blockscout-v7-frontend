@@ -594,6 +594,7 @@ This feature is **always enabled**, but you can disable it by passing `none` val
 | --- | --- | --- | --- | --- | --- | --- |
 | NEXT_PUBLIC_STATS_API_HOST | `string` | Stats API endpoint url | Required | - | `https://stats.services.blockscout.com` | v1.0.x+ |
 | NEXT_PUBLIC_STATS_API_BASE_PATH | `string` | Base path for Stats API endpoint url | - | - | `/poa/core` | v1.29.0+ |
+| NEXT_PUBLIC_EXPERIMENT_VISIBLE | `boolean`| Set to true to enable EXPERIMENT views. | - | - | `true` | v1.38.x+ |
 | NEXT_PUBLIC_EXPERIMENT_API_URL | `string` | TheGraph API endpoint url | - | `http://localhost:8000/subgraphs/name/oasys/bridge` | `https://api.thegraph.com/subgraphs/name/oasys/bridge` | v1.36.x+ |
 
 &nbsp;

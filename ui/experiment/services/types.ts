@@ -45,3 +45,45 @@ export const DAILY_STATS_QUERY = gql`
     }
   }
 `; 
+
+export interface BridgeEvent {
+  amount: number;
+  blockNumber: string;
+  chainName: string;
+  eventType: string; // This should be 'WITHDRAW' based on your query
+  from: string;
+  timestamp: string;
+  to: string;
+  transactionHash: string;
+  verseId: string;
+}
+
+export interface BridgeEventsResponse {
+  bridgeEvents: BridgeEvent[];
+}
+
+export const BRIDGE_EVENTS_QUERY = gql`
+  query GetBridgeEvents(
+    $first: Int!,
+    $skip: Int!,
+    $eventTypeFilter: String!
+  ) {
+    bridgeEvents(
+      first: $first,
+      skip: $skip,
+      orderBy: timestamp,
+      orderDirection: desc
+      where: { eventType: $eventTypeFilter }
+    ) {
+      amount
+      blockNumber
+      chainName
+      eventType
+      from
+      timestamp
+      to
+      transactionHash
+      verseId
+    }
+  }
+`;
