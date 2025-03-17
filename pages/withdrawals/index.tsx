@@ -30,6 +30,10 @@ const Withdrawals = dynamic(() => {
     return import('ui/pages/ScrollL2Withdrawals');
   }
 
+  if (rollupFeature.isEnabled && rollupFeature.type === 'oasys') {
+    return import('ui/pages/OasysL2ChainWithdrawals');
+  }
+
   if (beaconChainFeature.isEnabled && experiment.api) {
     return import('ui/pages/OasysL1ChainWithdrawals');
   }

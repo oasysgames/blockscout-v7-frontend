@@ -15,6 +15,8 @@ import config from 'configs/app';
 import { currencyUnits } from 'lib/units';
 import CurrencyValue from 'ui/shared/CurrencyValue';
 import Skeleton from 'ui/shared/chakra/Skeleton';
+import TxEntityL1 from 'ui/shared/entities/tx/TxEntityL1';
+import BlockEntityL1 from 'ui/shared/entities/block/BlockEntityL1';
 
 const feature = config.features.beaconChain;
 
@@ -76,7 +78,7 @@ const formatTimestamp = (timestamp: string): number => {
   return numericTimestamp;
 };
 
-const OasysL1ChainWithdrawalsListItem = ({ item, view, isLoading }: Props) => {
+const OasysL2ChainWithdrawalsListItem = ({ item, view, isLoading }: Props) => {
   if (!feature.isEnabled) {
     return null;
   }
@@ -102,7 +104,7 @@ const OasysL1ChainWithdrawalsListItem = ({ item, view, isLoading }: Props) => {
           <ListItemMobileGrid.Label isLoading={ isLoading }>L1 txn hash</ListItemMobileGrid.Label>
           <ListItemMobileGrid.Value>
             { item.transactionHash ? (
-              <TxEntity
+              <TxEntityL1
                 isLoading={ isLoading }
                 hash={ item.transactionHash }
                 truncation="constant_long"
@@ -131,9 +133,9 @@ const OasysL1ChainWithdrawalsListItem = ({ item, view, isLoading }: Props) => {
 
       { !isBlock && hasBlockNumber(item) && (
         <>
-          <ListItemMobileGrid.Label isLoading={ isLoading }>Block</ListItemMobileGrid.Label>
+          <ListItemMobileGrid.Label isLoading={ isLoading }>L1 Block</ListItemMobileGrid.Label>
           <ListItemMobileGrid.Value>
-            <BlockEntity
+            <BlockEntityL1
               number={ item.block_number }
               isLoading={ isLoading }
               fontSize="sm"
@@ -182,4 +184,4 @@ const OasysL1ChainWithdrawalsListItem = ({ item, view, isLoading }: Props) => {
   );
 };
 
-export default OasysL1ChainWithdrawalsListItem;
+export default OasysL2ChainWithdrawalsListItem;

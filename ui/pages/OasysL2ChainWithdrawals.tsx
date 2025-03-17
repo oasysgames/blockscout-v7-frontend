@@ -3,6 +3,7 @@ import BigNumber from 'bignumber.js';
 import React, { useState } from 'react';
 
 import config from 'configs/app';
+import { rightLineArrow, nbsp } from 'lib/html-entities';
 import getCurrencyValue from 'lib/getCurrencyValue';
 import { currencyUnits } from 'lib/units';
 import { ACTION_BAR_HEIGHT_DESKTOP } from 'ui/shared/ActionBar';
@@ -10,8 +11,8 @@ import Skeleton from 'ui/shared/chakra/Skeleton';
 import DataListDisplay from 'ui/shared/DataListDisplay';
 import PageTitle from 'ui/shared/Page/PageTitle';
 import StickyPaginationWithText from 'ui/shared/StickyPaginationWithText';
-import OasysL1ChainWithdrawalsListItem from 'ui/withdrawals/oasysL1/OasysL1ChainWithdrawalsListItem';
-import OasysL1ChainWithdrawalsTable from 'ui/withdrawals/oasysL1/OasysL1ChainWithdrawalsTable';
+import OasysL2ChainWithdrawalsListItem from 'ui/withdrawals/oasysL2/OasysL2ChainWithdrawalsListItem';
+import OasysL2ChainWithdrawalsTable from 'ui/withdrawals/oasysL2/OasysL2ChainWithdrawalsTable';
 import { useBridgeEvents, EventType } from 'ui/experiment/services/useBridgeEvents';
 import { useBridgeEventCounts } from 'ui/experiment/services/useBridgeEventCounts';
 
@@ -50,10 +51,10 @@ type ListItemProps = {
   key?: string; // Add key property
 }
 
-const Withdrawals = () => {
+const OasysL2ChainWithdrawals = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [eventType, setEventType] = useState<EventType>('DEPOSIT');
-  const [chainName, setChainName] = useState<string | null>(null);
+  const [eventType, setEventType] = useState<EventType>('WITHDRAW');
+  const [chainName, setChainName] = useState<string | null>('TCGVerse');
 
   const { data, isLoading, isError, pagination } = useBridgeEvents({
     page: currentPage,
@@ -100,7 +101,7 @@ const Withdrawals = () => {
     <>
       <Show below="lg" ssr={ false }>
         { transformedItems.map(((item, index) => (
-          <OasysL1ChainWithdrawalsListItem
+          <OasysL2ChainWithdrawalsListItem
             key={ item.block_number + String(index) }
             item={ item }
             view="list"
@@ -109,7 +110,7 @@ const Withdrawals = () => {
         ))) }
       </Show>
       <Hide below="lg" ssr={ false }>
-        <OasysL1ChainWithdrawalsTable
+        <OasysL2ChainWithdrawalsTable
           items={ transformedItems }
           view="list"
           top={ pagination.hasNextPage || pagination.hasPreviousPage ? ACTION_BAR_HEIGHT_DESKTOP : 0 }
@@ -151,10 +152,7 @@ const Withdrawals = () => {
 
   return (
     <>
-      <PageTitle
-        title={ config.meta.seo.enhancedDataEnabled ? `${ config.chain.name } withdrawals` : 'Withdrawals' }
-        withTextAd
-      />
+      <PageTitle title={ `Withdrawals (L2${ nbsp }${ rightLineArrow }${ nbsp }L1)` } withTextAd/>
       <DataListDisplay
         isError={ isError }
         items={ transformedItems }
@@ -166,4 +164,4 @@ const Withdrawals = () => {
   );
 };
 
-export default Withdrawals;
+export default OasysL2ChainWithdrawals;

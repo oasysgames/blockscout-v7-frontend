@@ -53,6 +53,35 @@ export const BRIDGE_EVENTS_QUERY_WITH_CHAIN = gql`
   }
 `;
 
+// Define the GraphQL query for counting events with eventType only
+export const BRIDGE_EVENTS_COUNT_QUERY_EVENT_TYPE_ONLY = gql`
+  query CountBridgeEvents($eventType: String!) {
+    bridgeEvents(
+      first: 1000,
+      where: { 
+        eventType: $eventType
+      }
+    ) {
+      id
+    }
+  }
+`;
+
+// Define the GraphQL query for counting events with both eventType and chainName
+export const BRIDGE_EVENTS_COUNT_QUERY_WITH_CHAIN = gql`
+  query CountBridgeEvents($eventType: String!, $chainName: String!) {
+    bridgeEvents(
+      first: 1000,
+      where: { 
+        eventType: $eventType,
+        chainName: $chainName
+      }
+    ) {
+      id
+    }
+  }
+`;
+
 // Define types
 export interface BridgeEvent {
   amount: string;
@@ -68,6 +97,10 @@ export interface BridgeEvent {
 
 export interface BridgeEventsResponse {
   bridgeEvents: BridgeEvent[];
+}
+
+export interface BridgeEventsCountResponse {
+  bridgeEvents: Array<{ id: string }>;
 }
 
 export type EventType = 'WITHDRAW' | 'DEPOSIT';
@@ -117,6 +150,8 @@ export const useBridgeEvents = ({
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
   const [hasNextPage, setHasNextPage] = useState(false);
+  const [totalItems, setTotalItems] = useState<number | undefined>(undefined);
+  const [totalPages, setTotalPages] = useState<number | undefined>(undefined);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -124,6 +159,33 @@ export const useBridgeEvents = ({
         setIsLoading(true);
         const client = createClient();
 
+        // First, get the total count of items
+        let countResponse: BridgeEventsCountResponse;
+        
+        if (chainName) {
+          countResponse = await client.request<BridgeEventsCountResponse>(
+            BRIDGE_EVENTS_COUNT_QUERY_WITH_CHAIN,
+            {
+              eventType,
+              chainName,
+            }
+          );
+        } else {
+          countResponse = await client.request<BridgeEventsCountResponse>(
+            BRIDGE_EVENTS_COUNT_QUERY_EVENT_TYPE_ONLY,
+            {
+              eventType,
+            }
+          );
+        }
+        
+        // Calculate total items and pages
+        const count = countResponse.bridgeEvents.length;
+        setTotalItems(count);
+        const calculatedTotalPages = Math.ceil(count / itemsPerPage);
+        setTotalPages(calculatedTotalPages);
+        
+        // Then, get the actual data for the current page
         let response: BridgeEventsResponse;
 
         // Use different queries based on whether chainName is provided
@@ -160,10 +222,12 @@ export const useBridgeEvents = ({
           return;
         }
 
-        setData(response.bridgeEvents);
+        // Ensure we only return exactly itemsPerPage items
+        const limitedData = response.bridgeEvents.slice(0, itemsPerPage);
+        setData(limitedData);
         
-        // Check if there might be more data (if we got exactly the number of items we requested)
-        setHasNextPage(response.bridgeEvents.length === itemsPerPage);
+        // Check if there are more pages
+        setHasNextPage(page < calculatedTotalPages);
         
         setError(null);
       } catch (err) {
@@ -187,7 +251,8 @@ export const useBridgeEvents = ({
       currentPage: page,
       hasNextPage,
       hasPreviousPage: page > 1,
-      // Note: GraphQL doesn't provide total count in this implementation
+      totalItems,
+      totalPages,
     },
   };
 };

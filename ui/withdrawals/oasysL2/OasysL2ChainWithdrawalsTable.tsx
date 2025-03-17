@@ -9,7 +9,7 @@ import config from 'configs/app';
 import useLazyRenderedList from 'lib/hooks/useLazyRenderedList';
 import { default as Thead } from 'ui/shared/TheadSticky';
 
-import OasysL1ChainWithdrawalsTableItem from './OasysL1ChainWithdrawalsTableItem';
+import OasysL2ChainWithdrawalsTableItem from './OasysL2ChainWithdrawalsTableItem';
 
 const feature = config.features.beaconChain;
 
@@ -51,7 +51,7 @@ type Props = {
   view: 'block';
 });
 
-const OasysL1ChainWithdrawalsTable = ({ items, isLoading, top, view }: Props) => {
+const OasysL2ChainWithdrawalsTable = ({ items, isLoading, top, view }: Props) => {
   const { cutRef, renderedItemsNum } = useLazyRenderedList(items, !isLoading);
 
   if (!feature.isEnabled) {
@@ -63,9 +63,9 @@ const OasysL1ChainWithdrawalsTable = ({ items, isLoading, top, view }: Props) =>
       <Thead top={ top }>
         <Tr>
           <Th minW="100px">Index</Th>
-          <Th minW="140px">Txn hash</Th>
+          <Th minW="140px">L1 Txn hash</Th>
           <Th minW="140px">Verse</Th>
-          { view !== 'block' && <Th w="25%">Block</Th> }
+          { view !== 'block' && <Th w="25%">L1 Block</Th> }
           { view !== 'address' && <Th w="25%">To</Th> }
           { view !== 'block' && <Th w="25%">Age</Th> }
           <Th w="25%">{ `Value ${ feature.currency.symbol }` }</Th>
@@ -73,7 +73,7 @@ const OasysL1ChainWithdrawalsTable = ({ items, isLoading, top, view }: Props) =>
       </Thead>
       <Tbody>
         { view === 'list' && (items as Array<ExtendedWithdrawalsItem>).slice(0, renderedItemsNum).map((item, index) => (
-          <OasysL1ChainWithdrawalsTableItem 
+          <OasysL2ChainWithdrawalsTableItem 
             key={ item.index + (isLoading ? String(index) : '') } 
             item={ item } 
             view="list" 
@@ -81,7 +81,7 @@ const OasysL1ChainWithdrawalsTable = ({ items, isLoading, top, view }: Props) =>
           />
         )) }
         { view === 'address' && (items as Array<ExtendedAddressWithdrawalsItem>).slice(0, renderedItemsNum).map((item, index) => (
-          <OasysL1ChainWithdrawalsTableItem 
+          <OasysL2ChainWithdrawalsTableItem 
             key={ item.index + (isLoading ? String(index) : '') } 
             item={ item } 
             view="address" 
@@ -89,7 +89,7 @@ const OasysL1ChainWithdrawalsTable = ({ items, isLoading, top, view }: Props) =>
           />
         )) }
         { view === 'block' && (items as Array<ExtendedBlockWithdrawalsItem>).slice(0, renderedItemsNum).map((item, index) => (
-          <OasysL1ChainWithdrawalsTableItem 
+          <OasysL2ChainWithdrawalsTableItem 
             key={ item.index + (isLoading ? String(index) : '') } 
             item={ item } 
             view="block" 
@@ -102,4 +102,4 @@ const OasysL1ChainWithdrawalsTable = ({ items, isLoading, top, view }: Props) =>
   );
 };
 
-export default OasysL1ChainWithdrawalsTable;
+export default OasysL2ChainWithdrawalsTable;

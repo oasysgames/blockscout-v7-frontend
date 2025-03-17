@@ -72,7 +72,7 @@ const formatTimestamp = (timestamp: string): number => {
   return numericTimestamp;
 };
 
-const OasysL1ChainWithdrawalsTableItem = ({ item, view, isLoading }: Props) => {
+const OasysL2ChainWithdrawalsTableItem = ({ item, view, isLoading }: Props) => {
   const isAddress = view === 'address';
   const isBlock = view === 'block';
 
@@ -145,4 +145,4 @@ const OasysL1ChainWithdrawalsTableItem = ({ item, view, isLoading }: Props) => {
   );
 };
 
-export default OasysL1ChainWithdrawalsTableItem;
+export default OasysL2ChainWithdrawalsTableItem;

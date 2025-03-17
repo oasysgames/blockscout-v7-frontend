@@ -4,36 +4,43 @@ import { getEnvValue } from 'configs/app/utils';
 import BigNumber from 'bignumber.js';
 import { EventType } from './useBridgeEvents';
 
-// Define the GraphQL query for counting and summing with eventType only
-export const BRIDGE_EVENTS_COUNT_QUERY_EVENT_TYPE_ONLY = gql`
-  query GetBridgeEventCounts($eventType: String!) {
+// Define the GraphQL query for getting events with pagination (eventType only)
+export const BRIDGE_EVENTS_QUERY_EVENT_TYPE_ONLY = gql`
+  query GetBridgeEvents($eventType: String!, $first: Int!, $skip: Int!) {
     bridgeEvents(
+      first: $first,
+      skip: $skip,
       where: { 
         eventType: $eventType
       }
     ) {
       amount
+      id
     }
   }
 `;
 
-// Define the GraphQL query for counting and summing with both eventType and chainName
-export const BRIDGE_EVENTS_COUNT_QUERY_WITH_CHAIN = gql`
-  query GetBridgeEventCounts($eventType: String!, $chainName: String!) {
+// Define the GraphQL query for getting events with pagination (with chainName)
+export const BRIDGE_EVENTS_QUERY_WITH_CHAIN = gql`
+  query GetBridgeEvents($eventType: String!, $chainName: String!, $first: Int!, $skip: Int!) {
     bridgeEvents(
+      first: $first,
+      skip: $skip,
       where: { 
         eventType: $eventType,
         chainName: $chainName
       }
     ) {
       amount
+      id
     }
   }
 `;
 
-interface BridgeEventCountsResponse {
+interface BridgeEventResponse {
   bridgeEvents: Array<{
     amount: string;
+    id: string;
   }>;
 }
 
@@ -85,49 +92,61 @@ export const useBridgeEventCounts = ({
         setIsLoading(true);
         const client = createClient();
 
-        let response: BridgeEventCountsResponse;
-
-        // Use different queries based on whether chainName is provided
-        if (chainName) {
-          // If chainName is provided, use the query with chainName filter
-          const requestParams = {
-            eventType,
-            chainName,
-          };
-
-          response = await client.request<BridgeEventCountsResponse>(
-            BRIDGE_EVENTS_COUNT_QUERY_WITH_CHAIN,
-            requestParams
-          );
-        } else {
-          // If chainName is not provided, use the query without chainName filter
-          const requestParams = {
-            eventType,
-          };
-
-          response = await client.request<BridgeEventCountsResponse>(
-            BRIDGE_EVENTS_COUNT_QUERY_EVENT_TYPE_ONLY,
-            requestParams
-          );
-        }
-
-        if (!response.bridgeEvents) {
-          console.error('[Frontend] Response does not contain bridgeEvents:', response);
-          setData(null);
-          return;
-        }
-
-        // Count the number of withdrawal events
-        const withdrawal_count = response.bridgeEvents.length.toString();
+        // Fetch all data in batches to calculate the total count and sum
+        let totalCount = 0;
+        let totalSum = new BigNumber(0);
+        const batchSize = 1000; // Maximum items per request
+        let hasMoreData = true;
+        let currentSkip = 0;
         
-        // Sum the amount of all withdrawal events
-        const withdrawal_sum = response.bridgeEvents.reduce((sum: BigNumber, event: { amount: string }) => {
-          return sum.plus(new BigNumber(event.amount));
-        }, new BigNumber(0)).toString(10);
+        while (hasMoreData) {
+          let response: BridgeEventResponse;
+          
+          if (chainName) {
+            response = await client.request<BridgeEventResponse>(
+              BRIDGE_EVENTS_QUERY_WITH_CHAIN,
+              { 
+                eventType, 
+                chainName, 
+                first: batchSize, 
+                skip: currentSkip 
+              }
+            );
+          } else {
+            response = await client.request<BridgeEventResponse>(
+              BRIDGE_EVENTS_QUERY_EVENT_TYPE_ONLY,
+              { 
+                eventType, 
+                first: batchSize, 
+                skip: currentSkip 
+              }
+            );
+          }
+          
+          if (!response.bridgeEvents || response.bridgeEvents.length === 0) {
+            hasMoreData = false;
+            break;
+          }
+          
+          // Increment the total count
+          totalCount += response.bridgeEvents.length;
+          
+          // Sum the amounts in this batch
+          response.bridgeEvents.forEach(event => {
+            totalSum = totalSum.plus(new BigNumber(event.amount));
+          });
+          
+          // Check if we need to fetch more data
+          if (response.bridgeEvents.length < batchSize) {
+            hasMoreData = false;
+          } else {
+            currentSkip += batchSize;
+          }
+        }
 
         setData({
-          withdrawal_count,
-          withdrawal_sum,
+          withdrawal_count: totalCount.toString(),
+          withdrawal_sum: totalSum.toString(10),
         });
         
         setIsPlaceholderData(false);
