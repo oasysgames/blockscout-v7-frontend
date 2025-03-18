@@ -20,6 +20,7 @@ export default Object.freeze({
     isDisabled: getEnvValue('NEXT_PUBLIC_PRICE_TRACKER_DISABLE') === 'true',
   },
   experiment: {
-    isVisible: getEnvValue('NEXT_PUBLIC_EXPERIMENT_API_URL') ? true : false,
+    isVisible: getEnvValue('NEXT_PUBLIC_EXPERIMENT_VISIBLE') ? true : false,
+    api: getEnvValue('NEXT_PUBLIC_EXPERIMENT_API_URL'),
   },
 });

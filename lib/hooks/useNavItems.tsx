@@ -175,6 +175,22 @@ export default function useNavItems(): ReturnType {
           ensLookup,
         ].filter(Boolean),
       ];
+    } else if (rollupFeature.isEnabled && rollupFeature.type === 'oasys') {
+      blockchainNavItems = [
+        [
+          txs,
+          internalTxs,
+          rollupDeposits,
+          rollupWithdrawals,
+        ],
+        [
+          blocks,
+          userOps,
+          topAccounts,
+          verifiedContracts,
+          ensLookup,
+        ].filter(Boolean),
+      ];
     } else {
       blockchainNavItems = [
         txs,
