@@ -1,13 +1,9 @@
-import { Flex, Grid, GridItem } from '@chakra-ui/react';
 import React from 'react';
 
-import type { WithdrawalsItem } from 'types/api/withdrawals';
 import type { AddressWithdrawalsItem } from 'types/api/address';
 import type { BlockWithdrawalsItem } from 'types/api/block';
+import type { WithdrawalsItem } from 'types/api/withdrawals';
 
-import AddressEntity from 'ui/shared/entities/address/AddressEntity';
-import BlockEntity from 'ui/shared/entities/block/BlockEntity';
-import TxEntity from 'ui/shared/entities/tx/TxEntity';
 import ListItemMobileGrid from 'ui/shared/ListItemMobile/ListItemMobileGrid';
 import TimeAgoWithTooltip from 'ui/shared/TimeAgoWithTooltip';
 
@@ -17,27 +13,29 @@ import CurrencyValue from 'ui/shared/CurrencyValue';
 import Skeleton from 'ui/shared/chakra/Skeleton';
 import TxEntityL1 from 'ui/shared/entities/tx/TxEntityL1';
 import BlockEntityL1 from 'ui/shared/entities/block/BlockEntityL1';
+import AddressEntityL1 from 'ui/shared/entities/address/AddressEntityL1';
+import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 
 const feature = config.features.beaconChain;
 
 // Extend the types to include our custom properties
-interface ExtendedWithdrawalsItem extends WithdrawalsItem {
+interface ExtendedDepositsItem extends WithdrawalsItem {
   transactionHash?: string;
   chainName?: string;
 }
 
-interface ExtendedAddressWithdrawalsItem extends AddressWithdrawalsItem {
+interface ExtendedAddressDepositsItem extends AddressWithdrawalsItem {
   transactionHash?: string;
   chainName?: string;
 }
 
-interface ExtendedBlockWithdrawalsItem extends BlockWithdrawalsItem {
+interface ExtendedBlockDepositsItem extends BlockWithdrawalsItem {
   transactionHash?: string;
   chainName?: string;
 }
 
 type Props = {
-  item: ExtendedWithdrawalsItem | ExtendedAddressWithdrawalsItem | ExtendedBlockWithdrawalsItem;
+  item: ExtendedDepositsItem | ExtendedAddressDepositsItem | ExtendedBlockDepositsItem;
   view: 'list' | 'address' | 'block';
   isLoading?: boolean;
 }
@@ -78,7 +76,7 @@ const formatTimestamp = (timestamp: string): number => {
   return numericTimestamp;
 };
 
-const OasysL2ChainWithdrawalsListItem = ({ item, view, isLoading }: Props) => {
+const OasysL2ChainDepositsListItem = ({ item, view, isLoading }: Props) => {
   if (!feature.isEnabled) {
     return null;
   }
@@ -102,20 +100,7 @@ const OasysL2ChainWithdrawalsListItem = ({ item, view, isLoading }: Props) => {
           </ListItemMobileGrid.Value>
         </>
       ) }
-      { !isAddress && hasReceiver(item) && (
-        <>
-          <ListItemMobileGrid.Label isLoading={ isLoading }>From</ListItemMobileGrid.Label>
-          <ListItemMobileGrid.Value>
-            <AddressEntity
-              address={ item.receiver }
-              isLoading={ isLoading }
-              fontSize="sm"
-              lineHeight={ 5 }
-              fontWeight={ 600 }
-            />
-          </ListItemMobileGrid.Value>
-        </>
-      ) }
+
       { !isAddress && (
         <>
           <ListItemMobileGrid.Label isLoading={ isLoading }>L1 txn hash</ListItemMobileGrid.Label>
@@ -138,6 +123,35 @@ const OasysL2ChainWithdrawalsListItem = ({ item, view, isLoading }: Props) => {
           </ListItemMobileGrid.Value>
         </>
       ) }
+
+      { !isAddress && hasReceiver(item) && (
+        <>
+          <ListItemMobileGrid.Label isLoading={ isLoading }>L1 txn origin</ListItemMobileGrid.Label>
+          <ListItemMobileGrid.Value>
+            <AddressEntityL1
+              address={ item.receiver }
+              isLoading={ isLoading }
+              fontSize="sm"
+              lineHeight={ 5 }
+              fontWeight={ 600 }
+            />
+          </ListItemMobileGrid.Value>
+        </>
+      ) }
+      { !isAddress && hasReceiver(item) && (
+        <>
+          <ListItemMobileGrid.Label isLoading={ isLoading }>To</ListItemMobileGrid.Label>
+          <ListItemMobileGrid.Value>
+            <AddressEntity
+              address={ item.receiver }
+              isLoading={ isLoading }
+              fontSize="sm"
+              lineHeight={ 5 }
+              fontWeight={ 600 }
+            />
+          </ListItemMobileGrid.Value>
+        </>
+      ) }
       { !isBlock && hasTimestamp(item) && (
         <>
           <ListItemMobileGrid.Label isLoading={ isLoading }>Age</ListItemMobileGrid.Label>
@@ -150,6 +164,7 @@ const OasysL2ChainWithdrawalsListItem = ({ item, view, isLoading }: Props) => {
           </ListItemMobileGrid.Value>
         </>
       ) }
+
       <>
         <ListItemMobileGrid.Label isLoading={ isLoading }>Amount</ListItemMobileGrid.Label>
         <ListItemMobileGrid.Value>
@@ -160,4 +175,4 @@ const OasysL2ChainWithdrawalsListItem = ({ item, view, isLoading }: Props) => {
   );
 };
 
-export default OasysL2ChainWithdrawalsListItem;
+export default OasysL2ChainDepositsListItem;

@@ -1,6 +1,6 @@
 import { Hide, Show, Text } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 import config from 'configs/app';
 import getCurrencyValue from 'lib/getCurrencyValue';
@@ -14,6 +14,7 @@ import OasysL1ChainWithdrawalsListItem from 'ui/withdrawals/oasysL1/OasysL1Chain
 import OasysL1ChainWithdrawalsTable from 'ui/withdrawals/oasysL1/OasysL1ChainWithdrawalsTable';
 import { useBridgeEvents, EventType } from 'ui/experiment/services/useBridgeEvents';
 import { useBridgeEventCounts } from 'ui/experiment/services/useBridgeEventCounts';
+import { getChainName } from 'pages/withdrawals/index';
 
 const ITEMS_PER_PAGE = 20;
 
@@ -66,6 +67,19 @@ const Withdrawals = () => {
     eventType,
     chainName,
   });
+
+  // Sử dụng useCallback để các hàm không bị tạo lại mỗi khi component re-render
+  const handleNextPage = useCallback(() => {
+    setCurrentPage(prevPage => prevPage + 1);
+  }, []);
+
+  const handlePrevPage = useCallback(() => {
+    setCurrentPage(prevPage => prevPage - 1);
+  }, []);
+
+  const resetPage = useCallback(() => {
+    setCurrentPage(1);
+  }, []);
 
   // Transform bridge events to match the expected format for the components
   const transformedItems = data.map((event, idx) => {
@@ -124,8 +138,8 @@ const Withdrawals = () => {
       <Skeleton isLoaded={ !countersQuery.isPlaceholderData && !isLoading } display="flex" flexWrap="wrap">
         { countersQuery.data && (
           <Text lineHeight={{ base: '24px', lg: '32px' }}>
-            { BigNumber(countersQuery.data.withdrawal_count).toFormat() } withdrawals processed
-            and { getCurrencyValue({ value: countersQuery.data.withdrawal_sum }).valueStr } { currencyUnits.ether } withdrawn
+            { BigNumber(countersQuery.data.withdrawal_count).toFormat() } withdrawals have been processed
+            and { getCurrencyValue({ value: countersQuery.data.withdrawal_sum }).valueStr } { currencyUnits.ether } has been withdrawn
           </Text>
         ) }
       </Skeleton>
@@ -136,12 +150,12 @@ const Withdrawals = () => {
   const paginationControl = {
     isVisible: pagination.hasNextPage || pagination.hasPreviousPage,
     currentPage: pagination.currentPage,
-    onNextPageClick: () => setCurrentPage(currentPage + 1),
-    onPrevPageClick: () => setCurrentPage(currentPage - 1),
+    onNextPageClick: handleNextPage,
+    onPrevPageClick: handlePrevPage,
     hasNextPage: pagination.hasNextPage,
     hasPrevPage: pagination.hasPreviousPage,
     page: pagination.currentPage,
-    resetPage: () => setCurrentPage(1),
+    resetPage: resetPage,
     hasPages: pagination.hasNextPage || pagination.hasPreviousPage,
     canGoBackwards: pagination.hasPreviousPage,
     isLoading: isLoading,

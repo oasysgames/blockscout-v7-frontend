@@ -11,16 +11,16 @@ import Skeleton from 'ui/shared/chakra/Skeleton';
 import DataListDisplay from 'ui/shared/DataListDisplay';
 import PageTitle from 'ui/shared/Page/PageTitle';
 import StickyPaginationWithText from 'ui/shared/StickyPaginationWithText';
-import OasysL2ChainWithdrawalsListItem from 'ui/withdrawals/oasysL2/OasysL2ChainWithdrawalsListItem';
-import OasysL2ChainWithdrawalsTable from 'ui/withdrawals/oasysL2/OasysL2ChainWithdrawalsTable';
+import OasysL2ChainDepositsListItem from 'ui/deposits/oasys/OasysL2ChainDepositsListItem';
+import OasysL2ChainDepositsTable from 'ui/deposits/oasys/OasysL2ChainDepositsTable';
 import { useBridgeEvents, EventType } from 'ui/experiment/services/useBridgeEvents';
 import { useBridgeEventCounts } from 'ui/experiment/services/useBridgeEventCounts';
 import { getChainName } from 'pages/withdrawals/index';
 
 const ITEMS_PER_PAGE = 20;
 
-// Extend the WithdrawalsItem type to include our custom properties
-interface ExtendedWithdrawalsItem {
+// Extend the DepositsItem type to include our custom properties
+interface ExtendedDepositsItem {
   index: number;
   validator_index: number;
   receiver: {
@@ -46,15 +46,15 @@ interface ExtendedWithdrawalsItem {
 
 // Define the props for the list item component
 type ListItemProps = {
-  item: ExtendedWithdrawalsItem;
+  item: ExtendedDepositsItem;
   view: 'list' | 'address' | 'block';
   isLoading?: boolean;
   key?: string; // Add key property
 }
 
-const OasysL2ChainWithdrawals = () => {
+const OasysL2ChainDeposits = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [eventType, setEventType] = useState<EventType>('WITHDRAW');
+  const [eventType, setEventType] = useState<EventType>('DEPOSIT');
   const [chainName, setChainName] = useState<string>('TCGVerse');
 
   useEffect(() => {
@@ -114,14 +114,14 @@ const OasysL2ChainWithdrawals = () => {
       // Store the original values in custom properties
       transactionHash: event.transactionHash,
       chainName: event.chainName,
-    } as ExtendedWithdrawalsItem;
+    } as ExtendedDepositsItem;
   });
 
   const content = transformedItems.length > 0 ? (
     <>
       <Show below="lg" ssr={ false }>
         { transformedItems.map(((item, index) => (
-          <OasysL2ChainWithdrawalsListItem
+          <OasysL2ChainDepositsListItem
             key={ item.block_number + String(index) }
             item={ item }
             view="list"
@@ -130,7 +130,7 @@ const OasysL2ChainWithdrawals = () => {
         ))) }
       </Show>
       <Hide below="lg" ssr={ false }>
-        <OasysL2ChainWithdrawalsTable
+        <OasysL2ChainDepositsTable
           items={ transformedItems }
           view="list"
           top={ pagination.hasNextPage || pagination.hasPreviousPage ? ACTION_BAR_HEIGHT_DESKTOP : 0 }
@@ -145,8 +145,8 @@ const OasysL2ChainWithdrawals = () => {
       <Skeleton isLoaded={ !countersQuery.isPlaceholderData && !isLoading } display="flex" flexWrap="wrap">
         { countersQuery.data && (
           <Text lineHeight={{ base: '24px', lg: '32px' }}>
-            { BigNumber(countersQuery.data.withdrawal_count).toFormat() } withdrawals have been processed
-            and { getCurrencyValue({ value: countersQuery.data.withdrawal_sum }).valueStr } { currencyUnits.ether } has been withdrawn
+            { BigNumber(countersQuery.data.withdrawal_count).toFormat() } deposits have been processed
+            and { getCurrencyValue({ value: countersQuery.data.withdrawal_sum }).valueStr } { currencyUnits.ether } has been deposited
           </Text>
         ) }
       </Skeleton>
@@ -172,11 +172,11 @@ const OasysL2ChainWithdrawals = () => {
 
   return (
     <>
-      <PageTitle title={ `Withdrawals (L2${ nbsp }${ rightLineArrow }${ nbsp }L1)` } withTextAd/>
+      <PageTitle title={ `Deposits (L1${ nbsp }${ rightLineArrow }${ nbsp }L2)` } withTextAd/>
       <DataListDisplay
         isError={ isError }
         items={ transformedItems }
-        emptyText="There are no withdrawals."
+        emptyText="There are no deposits."
         content={ content }
         actionBar={ actionBar }
       />
@@ -184,4 +184,4 @@ const OasysL2ChainWithdrawals = () => {
   );
 };
 
-export default OasysL2ChainWithdrawals;
+export default OasysL2ChainDeposits;

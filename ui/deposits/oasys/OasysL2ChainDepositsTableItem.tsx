@@ -1,39 +1,38 @@
 import { Td, Tr } from '@chakra-ui/react';
 import React from 'react';
 
-import type { WithdrawalsItem } from 'types/api/withdrawals';
 import type { AddressWithdrawalsItem } from 'types/api/address';
 import type { BlockWithdrawalsItem } from 'types/api/block';
+import type { WithdrawalsItem } from 'types/api/withdrawals';
 
 import config from 'configs/app';
 import { currencyUnits } from 'lib/units';
-import AddressEntity from 'ui/shared/entities/address/AddressEntity';
-import BlockEntity from 'ui/shared/entities/block/BlockEntity';
-import TxEntity from 'ui/shared/entities/tx/TxEntity';
 import CurrencyValue from 'ui/shared/CurrencyValue';
 import Skeleton from 'ui/shared/chakra/Skeleton';
 import TimeAgoWithTooltip from 'ui/shared/TimeAgoWithTooltip';
-import TxEntityL1 from 'ui/shared/entities/tx/TxEntityL1';
 import BlockEntityL1 from 'ui/shared/entities/block/BlockEntityL1';
+import TxEntityL1 from 'ui/shared/entities/tx/TxEntityL1';
+import AddressEntityL1 from 'ui/shared/entities/address/AddressEntityL1';
+import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 
 // Extend the types to include our custom properties
-interface ExtendedWithdrawalsItem extends WithdrawalsItem {
+interface ExtendedDepositsItem extends WithdrawalsItem {
   transactionHash?: string;
   chainName?: string;
 }
 
-interface ExtendedAddressWithdrawalsItem extends AddressWithdrawalsItem {
+interface ExtendedAddressDepositsItem extends AddressWithdrawalsItem {
   transactionHash?: string;
   chainName?: string;
 }
 
-interface ExtendedBlockWithdrawalsItem extends BlockWithdrawalsItem {
+interface ExtendedBlockDepositsItem extends BlockWithdrawalsItem {
   transactionHash?: string;
   chainName?: string;
 }
 
 type Props = {
-  item: ExtendedWithdrawalsItem | ExtendedAddressWithdrawalsItem | ExtendedBlockWithdrawalsItem;
+  item: ExtendedDepositsItem | ExtendedAddressDepositsItem | ExtendedBlockDepositsItem;
   view: 'list' | 'address' | 'block';
   isLoading?: boolean;
 }
@@ -74,7 +73,7 @@ const formatTimestamp = (timestamp: string): number => {
   return numericTimestamp;
 };
 
-const OasysL2ChainWithdrawalsTableItem = ({ item, view, isLoading }: Props) => {
+const OasysL2ChainDepositsTableItem = ({ item, view, isLoading }: Props) => {
   const isAddress = view === 'address';
   const isBlock = view === 'block';
 
@@ -85,17 +84,6 @@ const OasysL2ChainWithdrawalsTableItem = ({ item, view, isLoading }: Props) => {
           <BlockEntityL1
             number={ item.block_number }
             isLoading={ isLoading }
-            fontSize="sm"
-            lineHeight={ 5 }
-          />
-        </Td>
-      ) }
-      { !isAddress && hasReceiver(item) && (
-        <Td>
-          <AddressEntity
-            address={ item.receiver }
-            isLoading={ isLoading }
-            truncation="constant"
             fontSize="sm"
             lineHeight={ 5 }
           />
@@ -119,6 +107,28 @@ const OasysL2ChainWithdrawalsTableItem = ({ item, view, isLoading }: Props) => {
           )}
         </Td>
       ) }
+      { !isAddress && hasReceiver(item) && (
+        <Td>
+          <AddressEntityL1
+            address={ item.receiver }
+            isLoading={ isLoading }
+            truncation="constant"
+            fontSize="sm"
+            lineHeight={ 5 }
+          />
+        </Td>
+      ) }
+      { !isAddress && hasReceiver(item) && (
+        <Td>
+          <AddressEntity
+            address={ item.receiver }
+            isLoading={ isLoading }
+            truncation="constant"
+            fontSize="sm"
+            lineHeight={ 5 }
+          />
+        </Td>
+      ) }
       { !isBlock && hasTimestamp(item) && (
         <Td>
           <TimeAgoWithTooltip
@@ -135,4 +145,4 @@ const OasysL2ChainWithdrawalsTableItem = ({ item, view, isLoading }: Props) => {
   );
 };
 
-export default OasysL2ChainWithdrawalsTableItem;
+export default OasysL2ChainDepositsTableItem;
