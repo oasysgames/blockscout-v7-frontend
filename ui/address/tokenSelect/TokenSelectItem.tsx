@@ -18,10 +18,12 @@ interface Props {
 
 const TokenSelectItem = ({ data }: Props) => {
   let symbol = data.token.symbol;
-  // in case tokens is updated name
-  const updatedAddress = config.verse.tokens.updatedAddress.toLowerCase();
-  if (updatedAddress.length > 0 && data.token.address.toLowerCase().includes(updatedAddress)) {
-    symbol = config.verse.tokens.updatedSymbol;
+  // Check if the token address exists in the tokens list
+  if (data.token.address) {
+    const updatedToken = config.verse.tokens.findByAddress(data.token.address);
+    if (updatedToken) {
+      symbol = updatedToken.symbol;
+    }
   }
 
   const secondRow = (() => {

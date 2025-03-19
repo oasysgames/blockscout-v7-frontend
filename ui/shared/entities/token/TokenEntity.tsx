@@ -64,11 +64,14 @@ type ContentProps = Omit<EntityBase.ContentBaseProps, 'text'> & Pick<EntityProps
 const Content = chakra((props: ContentProps) => {
   let symbol = props.token.symbol;
   let tokenName = props.token.name;
-  // in case tokens is updated name
-  const updatedAddress = config.verse.tokens.updatedAddress.toLowerCase();
-  if (updatedAddress.length > 0 && props.token.address.toLowerCase().includes(updatedAddress)) {
-    tokenName = config.verse.tokens.updatedName;
-    symbol = config.verse.tokens.updatedSymbol;
+
+  // Check if the token address exists in the tokens list
+  if (props.token.address) {
+    const updatedToken = config.verse.tokens.findByAddress(props.token.address);
+    if (updatedToken) {
+      tokenName = updatedToken.name;
+      symbol = updatedToken.symbol;
+    }
   }
 
   const nameString = [
@@ -97,10 +100,13 @@ type SymbolProps = Pick<EntityProps, 'token' | 'isLoading' | 'noSymbol' | 'joint
 
 const Symbol = (props: SymbolProps) => {
   let symbol = props.token.symbol;
-  // in case tokens is updated name
-  const updatedAddress = config.verse.tokens.updatedAddress.toLowerCase();
-  if (updatedAddress.length > 0 && props.token.address.toLowerCase().includes(updatedAddress)) {
-    symbol = config.verse.tokens.updatedSymbol;
+  
+  // Check if the token address exists in the tokens list
+  if (props.token.address) {
+    const updatedToken = config.verse.tokens.findByAddress(props.token.address);
+    if (updatedToken) {
+      symbol = updatedToken.symbol;
+    }
   }
   
   if (!symbol || props.noSymbol || props.jointSymbol || props.onlySymbol) {

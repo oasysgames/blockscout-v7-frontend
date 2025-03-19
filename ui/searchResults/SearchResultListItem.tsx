@@ -7,6 +7,7 @@ import type { AddressFormat } from 'types/views/address';
 
 import { route } from 'nextjs-routes';
 
+import config from 'configs/app';
 import { toBech32Address } from 'lib/address/bech32';
 import dayjs from 'lib/date/dayjs';
 import highlightText from 'lib/highlightText';
@@ -53,7 +54,17 @@ const SearchResultListItem = ({ data, searchTerm, isLoading, addressFormat }: Pr
   const firstRow = (() => {
     switch (data.type) {
       case 'token': {
-        const name = data.name + (data.symbol ? ` (${ data.symbol })` : '');
+        let symbol = data.symbol;
+        let tokenName = data.name;
+        // Check if the token address exists in the tokens list
+        if (data.address) {
+          const updatedToken = config.verse.tokens.findByAddress(data.address);
+          if (updatedToken) {
+            tokenName = updatedToken.name;
+            symbol = updatedToken.symbol;
+          }
+        }
+        const name = tokenName + (symbol ? ` (${ symbol })` : '');
 
         return (
           <Flex alignItems="center" overflow="hidden">
@@ -119,6 +130,14 @@ const SearchResultListItem = ({ data, searchTerm, isLoading, addressFormat }: Pr
       }
 
       case 'label': {
+        let tokenName = data.name;
+        // Check if the token address exists in the tokens list
+        if (data.address) {
+          const updatedToken = config.verse.tokens.findByAddress(data.address);
+          if (updatedToken) {
+            tokenName = updatedToken.name;
+          }
+        }
         return (
           <Flex alignItems="center">
             <IconSvg name="publictags_slim" boxSize={ 6 } mr={ 2 } color="gray.500"/>
@@ -129,7 +148,7 @@ const SearchResultListItem = ({ data, searchTerm, isLoading, addressFormat }: Pr
               isLoading={ isLoading }
               onClick={ handleLinkClick }
             >
-              <span dangerouslySetInnerHTML={{ __html: highlightText(data.name, searchTerm) }}/>
+              <span dangerouslySetInnerHTML={{ __html: highlightText(tokenName, searchTerm) }}/>
             </LinkInternal>
           </Flex>
         );

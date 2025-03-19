@@ -33,11 +33,16 @@ const SearchBarSuggestAddress = ({ data, isMobile, searchTerm, addressFormat }: 
     />
   );
   let addressName = data.name || data.ens_info?.name;
-  // in case tokens is updated name
-  const updatedAddress = config.verse.tokens.updatedAddress.toLowerCase();
-  if (updatedAddress.length > 0 && data.address.toLowerCase().includes(updatedAddress)) {
-    addressName = config.verse.tokens.updatedName;
+  let tokenName = '';
+
+  // Check if the address exists in the tokens list
+  if (data.address) {
+    const updatedToken = config.verse.tokens.findByAddress(data.address);
+    if (updatedToken) {
+      tokenName = updatedToken.name;
+    }
   }
+
   const expiresText = data.ens_info?.expiry_date ? ` (expires ${ dayjs(data.ens_info.expiry_date).fromNow() })` : '';
 
   const nameEl = addressName && (

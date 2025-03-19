@@ -776,9 +776,7 @@ const schema = yup
         }),
 
     // Custom tokens
-    NEXT_PUBLIC_TOKENS_UPDATED_ADDRESS: yup.string(),
-    NEXT_PUBLIC_TOKENS_UPDATED_NAME: yup.string(),
-    NEXT_PUBLIC_TOKENS_UPDATED_SYMBOL: yup.string(),
+    NEXT_PUBLIC_UPDATED_TOKENS: yup.string(),
     
     //     b. sidebar
     NEXT_PUBLIC_FEATURED_NETWORKS: yup

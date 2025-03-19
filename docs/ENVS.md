@@ -955,6 +955,4 @@ This feature allows you to display a custom alert banner in the header of the ap
 ### Verse token configuration
 | Variable | Type| Description | Compulsoriness  | Default value | Example value | Version |
 | --- | --- | --- | --- | --- | --- | --- |
-| NEXT_PUBLIC_TOKENS_UPDATED_ADDRESS | `string` | Set the address if the token has changed | - | `` | `0xDeadDeAddeAddEAddeadDEaDDEAdDeaDDeAD0000` | v6.7.x+ |
-| NEXT_PUBLIC_TOKENS_UPDATED_NAME | `string` | Set the token name if the token has changed | - | `Oasys` | `` | v6.7.x+ |
-| NEXT_PUBLIC_TOKENS_UPDATED_SYMBOL | `string` | Set the token symbol if the token has changed | - | `OAS` | `` | v6.7.x+ |
+| NEXT_PUBLIC_UPDATED_TOKENS | `string` | The URL of the configuration file (in .json format only) or a string representation of the file content. It contains a list of updated tokens to be displayed.| - | - | `https://oasys-blockscout-networks.s3.ap-northeast-1.amazonaws.com/blockscout-updated-tokens.json` \| `{"tokens":[{"address":"0xDeadDeAddeAddEAddeadDEaDDEAdDeaDDeAD0000","name":"Oasys","symbol":"OAS"},{"address":"0xE1aB220E37AC55A4E2dD5Ba148298A9c09fBD716","name":"Legacy Bridged USDC (Celer)","symbol":"USDC.e-legacy"}]}` | v1.38.x+ |

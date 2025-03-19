@@ -51,7 +51,29 @@ const TokenPageTitle = ({ tokenQuery, addressQuery, hash }: Props) => {
     addressQuery.isPlaceholderData ||
     (config.features.verifiedTokens.isEnabled && verifiedInfoQuery.isPending);
 
-  const tokenSymbolText = tokenQuery.data?.symbol ? ` (${ tokenQuery.data.symbol })` : '';
+  const [ isSocketOpen, setIsSocketOpen ] = React.useState(false);
+
+  let symbol = tokenQuery.data?.symbol;
+  let tokenName = tokenQuery.data?.name;
+
+  // Check if the token address exists in the tokens list
+  if (tokenQuery.data?.address) {
+    const updatedToken = config.verse.tokens.findByAddress(tokenQuery.data.address);
+    if (updatedToken) {
+      tokenName = updatedToken.name;
+      symbol = updatedToken.symbol;
+    }
+  }
+
+  // Create the title string with token name and symbol
+  const title = React.useMemo(() => {
+    if (!tokenQuery.data) {
+      return '';
+    }
+
+    const titleString = `${tokenName || 'Unnamed token'}${symbol ? ` (${symbol})` : ''}`;
+    return titleString;
+  }, [tokenQuery.data, tokenName, symbol]);
 
   const backLink = React.useMemo(() => {
     const hasGoBackLink = appProps.referrer && appProps.referrer.includes('/tokens');
@@ -140,19 +162,10 @@ const TokenPageTitle = ({ tokenQuery, addressQuery, hash }: Props) => {
     </Flex>
   );
 
-  let symbolTxt = tokenSymbolText;
-  let tokenName = tokenQuery.data?.name || 'Unnamed token';
-  const updatedAddress = config.verse.tokens.updatedAddress.toLowerCase();
-
-  if (updatedAddress.length > 0 && tokenQuery.data?.address.toLowerCase().includes(updatedAddress)) {
-    symbolTxt = ' (' + config.verse.tokens.updatedSymbol + ')';
-    tokenName = config.verse.tokens.updatedName;
-  }
-
   return (
     <>
       <PageTitle
-        title={ `${ tokenName || 'Unnamed token' }${ symbolTxt }` }
+        title={ title }
         isLoading={ tokenQuery.isPlaceholderData }
         backLink={ backLink }
         beforeTitle={ tokenQuery.data ? (
