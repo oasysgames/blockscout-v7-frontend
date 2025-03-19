@@ -33,13 +33,12 @@ const SearchBarSuggestAddress = ({ data, isMobile, searchTerm, addressFormat }: 
     />
   );
   let addressName = data.name || data.ens_info?.name;
-  let tokenName = '';
 
   // Check if the address exists in the tokens list
   if (data.address) {
     const updatedToken = config.verse.tokens.findByAddress(data.address);
     if (updatedToken) {
-      tokenName = updatedToken.name;
+      addressName = updatedToken.name;
     }
   }
 
