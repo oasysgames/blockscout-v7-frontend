@@ -14,7 +14,7 @@ const Banner: React.FC = () => {
   const appProps = useAppContext();
   const cookiesString = appProps.cookies;
   const isNavBarCollapsedCookie = cookies.get(cookies.NAMES.NAV_BAR_COLLAPSED, cookiesString);
-  const isNavBarCollapsed = isNavBarCollapsedCookie === 'true';
+  const isNavBarCollapsed = isNavBarCollapsedCookie === null ? true : isNavBarCollapsedCookie === 'true';
 
   // 3つのバナー設定を取得
   const bannerConfigs = [
