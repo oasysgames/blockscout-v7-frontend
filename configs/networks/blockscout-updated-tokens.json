@@ -1,0 +1,14 @@
+{
+  "tokens": [
+    {
+      "address": "0xDeadDeAddeAddEAddeadDEaDDEAdDeaDDeAD0000",
+      "name": "Oasys",
+      "symbol": "OAS"
+    },
+    {
+      "address": "0xE1aB220E37AC55A4E2dD5Ba148298A9c09fBD716",
+      "name": "Legacy Bridged USDC (Celer)",
+      "symbol": "USDC.e-legacy"
+    }
+  ]
+}

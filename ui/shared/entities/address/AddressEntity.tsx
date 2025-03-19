@@ -110,11 +110,14 @@ const Content = chakra((props: ContentProps) => {
   const nameTag = props.address.metadata?.tags.find(tag => tag.tagType === 'name')?.name;
   let nameText = nameTag || props.address.ens_domain_name || props.address.name;
 
-  // in case tokens is updated name
-  const updatedAddress = config.verse.tokens.updatedAddress.toLowerCase();
-  if (updatedAddress.length > 0 && props.address.hash.toLowerCase().includes(updatedAddress)) {
-    nameText = config.verse.tokens.updatedName;
+  // Check if the token address exists in the tokens list
+  if (props.address.hash) {
+    const updatedToken = config.verse.tokens.findByAddress(props.address.hash);
+    if (updatedToken) {
+      nameText = updatedToken.name;
+    }
   }
+
   const isProxy = props.address.implementations && props.address.implementations.length > 0 && props.address.proxy_type !== 'eip7702';
 
   if (isProxy) {

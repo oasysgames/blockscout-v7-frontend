@@ -1,6 +1,7 @@
 import { Grid, Text, Flex } from '@chakra-ui/react';
 import React from 'react';
 
+import config from 'configs/app';
 import type { ItemsProps } from './types';
 import type { SearchResultLabel } from 'types/api/search';
 
@@ -12,6 +13,14 @@ import IconSvg from 'ui/shared/IconSvg';
 const SearchBarSuggestLabel = ({ data, isMobile, searchTerm, addressFormat }: ItemsProps<SearchResultLabel>) => {
   const icon = <IconSvg name="publictags_slim" boxSize={ 5 } color="gray.500"/>;
   const hash = data.filecoin_robust_address || (addressFormat === 'bech32' ? toBech32Address(data.address) : data.address);
+  let tokenName = data.name;
+  // Check if the token address exists in the tokens list
+  if (data.address) {
+    const updatedToken = config.verse.tokens.findByAddress(hash);
+    if (updatedToken) {
+      tokenName = updatedToken.name;
+    }
+  }
 
   const name = (
     <Text
@@ -20,7 +29,7 @@ const SearchBarSuggestLabel = ({ data, isMobile, searchTerm, addressFormat }: It
       whiteSpace="nowrap"
       textOverflow="ellipsis"
     >
-      <span dangerouslySetInnerHTML={{ __html: highlightText(data.name, searchTerm) }}/>
+      <span dangerouslySetInnerHTML={{ __html: highlightText(tokenName, searchTerm) }}/>
     </Text>
   );
 

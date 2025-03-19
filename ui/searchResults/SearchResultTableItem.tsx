@@ -7,6 +7,7 @@ import type { AddressFormat } from 'types/views/address';
 
 import { route } from 'nextjs-routes';
 
+import config from 'configs/app';
 import { toBech32Address } from 'lib/address/bech32';
 import dayjs from 'lib/date/dayjs';
 import highlightText from 'lib/highlightText';
@@ -52,7 +53,17 @@ const SearchResultTableItem = ({ data, searchTerm, isLoading, addressFormat }: P
   const content = (() => {
     switch (data.type) {
       case 'token': {
-        const name = data.name + (data.symbol ? ` (${ data.symbol })` : '');
+        let symbol = data.symbol;
+        let tokenName = data.name;
+        // Check if the token address exists in the tokens list
+        if (data.address) {
+          const updatedToken = config.verse.tokens.findByAddress(data.address);
+          if (updatedToken) {
+            tokenName = updatedToken.name;
+            symbol = updatedToken.symbol;
+          }
+        }
+        const name = tokenName + (symbol ? ` (${ symbol })` : '');
         const hash = data.filecoin_robust_address || (addressFormat === 'bech32' ? toBech32Address(data.address) : data.address);
 
         return (
@@ -104,7 +115,15 @@ const SearchResultTableItem = ({ data, searchTerm, isLoading, addressFormat }: P
       case 'contract':
       case 'address': {
         const shouldHighlightHash = ADDRESS_REGEXP.test(searchTerm);
-        const addressName = data.name || data.ens_info?.name;
+        
+        let addressName = data.name || data.ens_info?.name;
+        // Check if the token address exists in the tokens list
+        if (data.address) {
+          const updatedToken = config.verse.tokens.findByAddress(data.address);
+          if (updatedToken) {
+            addressName = updatedToken.name;
+          }
+        }
         const address = {
           hash: data.address,
           filecoin: {
@@ -179,6 +198,14 @@ const SearchResultTableItem = ({ data, searchTerm, isLoading, addressFormat }: P
       case 'label': {
         const hash = data.filecoin_robust_address || (addressFormat === 'bech32' ? toBech32Address(data.address) : data.address);
 
+        let tokenName = data.name;
+        // Check if the token address exists in the tokens list
+        if (data.address) {
+          const updatedToken = config.verse.tokens.findByAddress(data.address);
+          if (updatedToken) {
+            tokenName = updatedToken.name;
+          }
+        }
         return (
           <>
             <Td fontSize="sm">
@@ -191,7 +218,7 @@ const SearchResultTableItem = ({ data, searchTerm, isLoading, addressFormat }: P
                   isLoading={ isLoading }
                   onClick={ handleLinkClick }
                 >
-                  <span dangerouslySetInnerHTML={{ __html: highlightText(data.name, searchTerm) }}/>
+                  <span dangerouslySetInnerHTML={{ __html: highlightText(tokenName, searchTerm) }}/>
                 </LinkInternal>
               </Flex>
             </Td>
