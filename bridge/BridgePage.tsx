@@ -50,7 +50,7 @@ const BridgePage = () => {
     switchChainAsync({ chainId })
   }, [isDeposit])
 
-  const [ deposit, withdraw, loading, hash, error ] = useDepositWithdraw(verseVersion ? 1 : 0);
+  const [ deposit, withdraw, loading, hash, error ] = useDepositWithdraw(verseVersion ? 1 : 0, isDeposit ? ChainId.OASYS : l2ChainId);
 
   const doBridge = useCallback(() => {
     if (isDeposit) {
