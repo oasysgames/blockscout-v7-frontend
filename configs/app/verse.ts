@@ -1,7 +1,7 @@
 import { ChainId } from 'bridge/constants/types';
 
-import { getEnvValue, getExternalAssetFilePath } from './utils';
 import updatedTokens from '../networks/blockscout-updated-tokens.json';
+import { getEnvValue, getExternalAssetFilePath } from './utils';
 
 // Define token interface
 interface Token {
@@ -12,7 +12,7 @@ interface Token {
 
 // Token list interface
 interface TokenList {
-  tokens: Token[];
+  tokens: Array<Token>;
 }
 
 // Initialize with default tokens from JSON file
@@ -21,26 +21,26 @@ let tokenList: TokenList = updatedTokens;
 // Function to validate token data
 const isValidTokenList = (data: unknown): data is TokenList => {
   return (
-    typeof data === 'object' && 
-    data !== null && 
-    'tokens' in data && 
+    typeof data === 'object' &&
+    data !== null &&
+    'tokens' in data &&
     Array.isArray((data as TokenList).tokens) &&
-    (data as TokenList).tokens.every(token => 
-      typeof token === 'object' && 
-      token !== null && 
-      'address' in token && 
-      'name' in token && 
-      'symbol' in token
+    (data as TokenList).tokens.every(token =>
+      typeof token === 'object' &&
+      token !== null &&
+      'address' in token &&
+      'name' in token &&
+      'symbol' in token,
     )
   );
 };
 
 // Function to fetch token list from external source
-const fetchTokenList = async () => {
+const fetchTokenList = async() => {
   try {
     // Get path to external asset file that was downloaded at build time
     const tokenFilePath = getExternalAssetFilePath('NEXT_PUBLIC_UPDATED_TOKENS');
-    
+
     if (!tokenFilePath) {
       console.log('External token file path could not be determined, using default token list');
       return;
@@ -49,11 +49,11 @@ const fetchTokenList = async () => {
     // Fetch the JSON file from the public directory
     const response = await fetch(tokenFilePath);
     if (!response.ok) {
-      throw new Error(`Failed to fetch token list: ${response.status}`);
+      throw new Error(`Failed to fetch token list: ${ response.status }`);
     }
 
     const data = await response.json();
-    
+
     // Validate the data structure
     if (isValidTokenList(data)) {
       tokenList = data;
@@ -77,10 +77,10 @@ if (typeof window !== 'undefined') {
 // Function to find token by address
 const findTokenByAddress = (address: string): Token | undefined => {
   if (!address) return undefined;
-  
+
   const lowerCaseAddress = address.toLowerCase();
-  return tokenList.tokens.find(token => 
-    token.address.toLowerCase() === lowerCaseAddress
+  return tokenList.tokens.find(token =>
+    token.address.toLowerCase() === lowerCaseAddress,
   );
 };
 
