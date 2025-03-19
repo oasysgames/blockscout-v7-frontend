@@ -1,7 +1,5 @@
-import dynamic from 'next/dynamic';
-import Image from 'next/image';
 import React from 'react';
-
+import Image from 'next/image';
 import { getEnvValue } from '../configs/app/utils';
 import { useAppContext } from '../lib/contexts/app';
 import * as cookies from '../lib/cookies';
@@ -16,8 +14,7 @@ const Banner: React.FC = () => {
   const appProps = useAppContext();
   const cookiesString = appProps.cookies;
   const isNavBarCollapsedCookie = cookies.get(cookies.NAMES.NAV_BAR_COLLAPSED, cookiesString);
-  // 初回アクセス時（クッキー未設定時）はメニューが閉じている状態とみなす
-  const isNavBarCollapsed = isNavBarCollapsedCookie === undefined ? true : isNavBarCollapsedCookie === 'true';
+  const isNavBarCollapsed = isNavBarCollapsedCookie === null ? true : isNavBarCollapsedCookie === 'true';
 
   // 3つのバナー設定を取得
   const bannerConfigs = [
@@ -51,7 +48,7 @@ const Banner: React.FC = () => {
       padding: '0',
       display: 'flex',
       flexDirection: 'column',
-      gap: '8px',
+      gap: '4px',
       justifyContent: 'flex-start',
       alignItems: 'flex-start',
       backgroundColor: 'transparent',
@@ -69,17 +66,19 @@ const Banner: React.FC = () => {
           <Image
             src={ banner.imageUrl }
             alt={ `Banner ${ index + 1 }` }
-            width={ 160 }
-            height={ 80 }
+            width={ 200 }
+            height={ 200 }
             priority
             unoptimized
             style={{
-              maxWidth: '160px',
-              maxHeight: '80px',
+              width: '180px',
+              height: 'auto',
+              maxWidth: '180px',
               display: 'block',
               margin: '0',
               padding: '0',
               lineHeight: '0',
+              objectFit: 'contain',
             }}
           />
         </a>
@@ -88,4 +87,4 @@ const Banner: React.FC = () => {
   );
 };
 
-export default dynamic(() => Promise.resolve(Banner), { ssr: false });
+export default Banner;

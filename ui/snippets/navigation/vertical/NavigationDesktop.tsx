@@ -23,13 +23,7 @@ const NavigationDesktop = () => {
   const cookiesString = appProps.cookies;
 
   const isNavBarCollapsedCookie = cookies.get(cookies.NAMES.NAV_BAR_COLLAPSED, cookiesString);
-  let isNavBarCollapsed;
-  if (isNavBarCollapsedCookie === 'true') {
-    isNavBarCollapsed = true;
-  }
-  if (isNavBarCollapsedCookie === 'false') {
-    isNavBarCollapsed = false;
-  }
+  const isNavBarCollapsed = isNavBarCollapsedCookie === null ? true : isNavBarCollapsedCookie === 'true';
 
   const { mainNavItems, accountNavItems } = useNavItems();
 
