@@ -48,7 +48,7 @@ const Banner: React.FC = () => {
       padding: '0',
       display: 'flex',
       flexDirection: 'column',
-      gap: '8px',
+      gap: '4px',
       justifyContent: 'flex-start',
       alignItems: 'flex-start',
       backgroundColor: 'transparent',
@@ -66,17 +66,19 @@ const Banner: React.FC = () => {
           <Image
             src={ banner.imageUrl }
             alt={ `Banner ${ index + 1 }` }
-            width={ 160 }
-            height={ 80 }
+            width={ 200 }
+            height={ 200 }
             priority
             unoptimized
             style={{
-              maxWidth: '160px',
-              maxHeight: '80px',
+              width: '180px',
+              height: 'auto',
+              maxWidth: '180px',
               display: 'block',
               margin: '0',
               padding: '0',
               lineHeight: '0',
+              objectFit: 'contain',
             }}
           />
         </a>
