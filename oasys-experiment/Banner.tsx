@@ -1,7 +1,5 @@
-import dynamic from 'next/dynamic';
-import Image from 'next/image';
 import React from 'react';
-
+import Image from 'next/image';
 import { getEnvValue } from '../configs/app/utils';
 import { useAppContext } from '../lib/contexts/app';
 import * as cookies from '../lib/cookies';
@@ -16,8 +14,7 @@ const Banner: React.FC = () => {
   const appProps = useAppContext();
   const cookiesString = appProps.cookies;
   const isNavBarCollapsedCookie = cookies.get(cookies.NAMES.NAV_BAR_COLLAPSED, cookiesString);
-  // 初回アクセス時（クッキー未設定時）はメニューが閉じている状態とみなす
-  const isNavBarCollapsed = isNavBarCollapsedCookie === undefined ? true : isNavBarCollapsedCookie === 'true';
+  const isNavBarCollapsed = isNavBarCollapsedCookie === 'true';
 
   // 3つのバナー設定を取得
   const bannerConfigs = [
@@ -88,4 +85,4 @@ const Banner: React.FC = () => {
   );
 };
 
-export default dynamic(() => Promise.resolve(Banner), { ssr: false });
+export default Banner;
