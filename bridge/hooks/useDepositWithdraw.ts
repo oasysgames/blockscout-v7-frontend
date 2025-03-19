@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import type { Address, ChainContract } from 'viem';
 import { parseUnits } from 'viem';
 import { waitForTransactionReceipt } from 'viem/actions';
-import { useWriteContract, useSwitchChain, useChainId, useAccount, usePublicClient } from 'wagmi';
+import { useWriteContract, useSwitchChain, useAccount, usePublicClient } from 'wagmi';
 
 import { ChainId, TokenIndex } from '../constants/types';
 
@@ -22,9 +22,8 @@ type UseDepositWithdrawReturn = [
 const l2StandardBridgeAddr = '0x4200000000000000000000000000000000000010';
 const l2OASLegacyAddr = '0xDeadDeAddeAddEAddeadDEaDDEAdDeaDDeAD0000';
 
-export function useDepositWithdraw(verseVersion: 0 | 1): UseDepositWithdrawReturn {
+export function useDepositWithdraw(verseVersion: 0 | 1, chainId: number): UseDepositWithdrawReturn {
   const { writeContractAsync, data: hash, error } = useWriteContract();
-  const chainId = useChainId();
   const { switchChainAsync } = useSwitchChain();
   const client = usePublicClient({ chainId });
 
