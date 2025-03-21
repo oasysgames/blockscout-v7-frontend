@@ -79,7 +79,7 @@ const LatestBlocks = () => {
   }
 
   if (data) {
-    // Chỉ filter các block có transaction_count > 1 khi config.verse.opNode.isHiddenTxs là true
+    // filter block with transaction_count > 1 when config.verse.opNode.isHiddenTxs là true
     const filteredData = config.verse.opNode.isHiddenTxs 
       ? data.filter(block => block.transaction_count > 1)
       : data;
