@@ -15,7 +15,6 @@ import OasysL2ChainWithdrawalsListItem from 'ui/withdrawals/oasysL2/OasysL2Chain
 import OasysL2ChainWithdrawalsTable from 'ui/withdrawals/oasysL2/OasysL2ChainWithdrawalsTable';
 import { useBridgeEvents, EventType } from 'ui/experiment/services/useBridgeEvents';
 import { useBridgeEventCounts } from 'ui/experiment/services/useBridgeEventCounts';
-import { getChainName } from 'pages/withdrawals/index';
 
 const ITEMS_PER_PAGE = 20;
 
@@ -55,13 +54,7 @@ type ListItemProps = {
 const OasysL2ChainWithdrawals = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [eventType, setEventType] = useState<EventType>('WITHDRAW');
-  const [chainName, setChainName] = useState<string>('TCGVerse');
-
-  useEffect(() => {
-    if (chainName === null) {
-      setChainName(getChainName());
-    }
-  }, [chainName]);
+  const [chainName, setChainName] = useState<string>(config.verse.bridge.l2ChainName);
 
   const { data, isLoading, isError, pagination } = useBridgeEvents({
     page: currentPage,
