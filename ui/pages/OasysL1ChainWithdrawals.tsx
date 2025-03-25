@@ -14,7 +14,6 @@ import OasysL1ChainWithdrawalsListItem from 'ui/withdrawals/oasysL1/OasysL1Chain
 import OasysL1ChainWithdrawalsTable from 'ui/withdrawals/oasysL1/OasysL1ChainWithdrawalsTable';
 import { useBridgeEvents, EventType } from 'ui/experiment/services/useBridgeEvents';
 import { useBridgeEventCounts } from 'ui/experiment/services/useBridgeEventCounts';
-import { getChainName } from 'pages/withdrawals/index';
 
 const ITEMS_PER_PAGE = 20;
 

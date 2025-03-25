@@ -84,6 +84,28 @@ const findTokenByAddress = (address: string): Token | undefined => {
   );
 };
 
+export const CHAIN_INFO: { [key: string]: { id: number; name: string } } = {
+  '248': { id: 248, name: 'Oasys' },
+  '2400': { id: 2400, name: 'TCGVerse' },
+  '7225878': { id: 7225878, name: 'SaakuruVerse' },
+  '29548': { id: 29548, name: 'MCHVerse' },
+  '7300': { id: 7300, name: 'XPLAVerse' },
+  '19011': { id: 19011, name: 'HOMEVerse' },
+  '16116': { id: 16116, name: 'DefiVerse' },
+  '50006': { id: 50006, name: 'YooldoVerse' },
+  '75512': { id: 75512, name: 'GeekVerse' },
+  '5555': { id: 5555, name: 'ChainVerse' },
+  '428': { id: 428, name: 'GesoVerse' },
+};
+
+export const getChainName = () => {
+  const networkId = getEnvValue('NEXT_PUBLIC_NETWORK_ID') || ChainId.TCG;
+  if (!networkId || !CHAIN_INFO[networkId]) {
+    return 'Unknown Chain';
+  }
+  return CHAIN_INFO[networkId].name;
+};
+
 export default Object.freeze({
   opNode: {
     isHiddenTxs: getEnvValue('NEXT_PUBLIC_HOMEPAGE_HIDDEN_OP_NODE_TXS') === 'true',
@@ -99,6 +121,7 @@ export default Object.freeze({
   bridge: {
     isVisible: getEnvValue('NEXT_PUBLIC_MENU_BRIDGE_VISIBLE') === 'true',
     l2ChainId: getEnvValue('NEXT_PUBLIC_L2_CHAIN_ID') || ChainId.TCG,
+    l2ChainName: getChainName,
     verseVersion: getEnvValue('NEXT_PUBLIC_VERSE_VERSION'),
   },
   coinPrice: {
