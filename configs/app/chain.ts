@@ -6,6 +6,7 @@ import { urlValidator } from 'ui/shared/forms/validators/url';
 import { getEnvValue, parseEnvJson } from './utils';
 
 const DEFAULT_CURRENCY_DECIMALS = 18;
+const DEFAULT_CURRENCY_IMAGE = 'https://assets.coingecko.com/coins/images/27909/standard/OAS.png';
 
 const rollupType = getEnvValue('NEXT_PUBLIC_ROLLUP_TYPE') as RollupType;
 
@@ -40,7 +41,7 @@ const chain = Object.freeze({
     name: getEnvValue('NEXT_PUBLIC_NETWORK_CURRENCY_NAME'),
     weiName: getEnvValue('NEXT_PUBLIC_NETWORK_CURRENCY_WEI_NAME'),
     symbol: getEnvValue('NEXT_PUBLIC_NETWORK_CURRENCY_SYMBOL'),
-    coinImage: getEnvValue('NEXT_PUBLIC_NETWORK_CURRENCY_IMAGE') || '/assets/favicon/favicon-16x16.png',
+    coinImage: getEnvValue('NEXT_PUBLIC_NETWORK_CURRENCY_IMAGE') || DEFAULT_CURRENCY_IMAGE,
     decimals: Number(getEnvValue('NEXT_PUBLIC_NETWORK_CURRENCY_DECIMALS')) || DEFAULT_CURRENCY_DECIMALS,
   },
   secondaryCoin: {
