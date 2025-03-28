@@ -1,0 +1,140 @@
+[
+  {
+    "title": "HUB-Mainnet",
+    "url": "https://explorer.oasys.games/",
+    "group": "Mainnets",
+    "icon": "https://oasys-blockscout-networks.s3.ap-northeast-1.amazonaws.com/verse-logo/hub_mainnet.png"
+  },
+  {
+    "title": "HUB-Testnet",
+    "url": "https://explorer.testnet.oasys.games/",
+    "group": "Testnets",
+    "icon": "https://oasys-blockscout-networks.s3.ap-northeast-1.amazonaws.com/verse-logo/hub_mainnet.png"
+  },
+  {
+    "title": "SAND-Verse",
+    "url": "https://explorer.sandverse.oasys.games/",
+    "group": "Testnets",
+    "icon": "https://oasys-blockscout-networks.s3.ap-northeast-1.amazonaws.com/verse-logo/hub_mainnet.png"
+  },
+  {
+    "title": "MCHVerse-Mainnet",
+    "url": "https://explorer.oasys.mycryptoheroes.net/",
+    "group": "Mainnets",
+    "icon": "https://oasys-blockscout-networks.s3.ap-northeast-1.amazonaws.com/verse-logo/mch.png"
+  },
+  {
+    "title": "TCGVerse-Mainnet",
+    "url": "https://explorer.tcgverse.xyz/",
+    "group": "Mainnets",
+    "icon": "https://oasys-blockscout-networks.s3.ap-northeast-1.amazonaws.com/verse-logo/tcg.png"
+  },
+  {
+    "title": "HomeVerse-Mainnet",
+    "url": "https://explorer.oasys.homeverse.games/",
+    "group": "Mainnets",
+    "icon": "https://oasys-blockscout-networks.s3.ap-northeast-1.amazonaws.com/verse-logo/home.png"
+  },
+  {
+    "title": "SaakuruVerse-Mainnet",
+    "url": "https://explorer.saakuru.network/",
+    "group": "Mainnets",
+    "icon": "https://oasys-blockscout-networks.s3.ap-northeast-1.amazonaws.com/verse-logo/saakuru.png"
+  },
+  {
+    "title": "GEEK Verse-Mainnet",
+    "url": "https://explorer.geekout-pte.com/",
+    "group": "Mainnets",
+    "icon": "https://oasys-blockscout-networks.s3.ap-northeast-1.amazonaws.com/verse-logo/geek.png"
+  },
+  {
+    "title": "MCHVerse-Testnet",
+    "url": "https://explorer.oasys.sand.mchdfgh.xyz/",
+    "group": "Testnets",
+    "icon": "https://oasys-blockscout-networks.s3.ap-northeast-1.amazonaws.com/verse-logo/mch.png"
+  },
+  {
+    "title": "TCGVerse-Testnet",
+    "url": "https://explorer.testnet.tcgverse.xyz/",
+    "group": "Testnets",
+    "icon": "https://oasys-blockscout-networks.s3.ap-northeast-1.amazonaws.com/verse-logo/tcg.png"
+  },
+  {
+    "title": "HOMEVerse-Testnet",
+    "url": "https://explorer.testnet.oasys.homeverse.games/",
+    "group": "Testnets",
+    "icon": "https://oasys-blockscout-networks.s3.ap-northeast-1.amazonaws.com/verse-logo/home.png"
+  },
+  {
+    "title": "GESO Verse-Mainnet",
+    "url": "https://explorer.verse.gesoten.com/",
+    "group": "Mainnets",
+    "icon": "https://oasys-blockscout-networks.s3.ap-northeast-1.amazonaws.com/verse-logo/geso.png"
+  },
+  {
+    "title": "GESO Verse-Testnet",
+    "url": "https://explorer.testnet.verse.gesoten.com/",
+    "group": "Testnets",
+    "icon": "https://oasys-blockscout-networks.s3.ap-northeast-1.amazonaws.com/verse-logo/geso.png"
+  },
+  {
+    "title": "YooldoVerse-Testnet",
+    "url": "https://explorer.testnet.yooldo-verse.xyz/",
+    "group": "Testnets",
+    "icon": "https://oasys-blockscout-networks.s3.ap-northeast-1.amazonaws.com/verse-logo/yooldo.png"
+  },
+  {
+    "title": "YooldoVerse-Mainnet",
+    "url": "https://explorer.yooldo-verse.xyz/",
+    "group": "Mainnets",
+    "icon": "https://oasys-blockscout-networks.s3.ap-northeast-1.amazonaws.com/verse-logo/yooldo.png"
+  },
+  {
+    "title": "Chainverse-Mainnet",
+    "url": "https://explorer.chainverse.info/",
+    "group": "Mainnets",
+    "icon": "https://oasys-blockscout-networks.s3.ap-northeast-1.amazonaws.com/verse-logo/chain.png"
+  },
+  {
+    "title": "DeFiVerse-Mainnet",
+    "url": "https://scan.defi-verse.org/",
+    "group": "Mainnets",
+    "icon": "https://oasys-blockscout-networks.s3.ap-northeast-1.amazonaws.com/verse-logo/defi.png"
+  },
+  {
+    "title": "Saakuru-Testnet",
+    "url": "https://explorer-testnet.saakuru.network/",
+    "group": "Testnets",
+    "icon": "https://oasys-blockscout-networks.s3.ap-northeast-1.amazonaws.com/verse-logo/saakuru.png"
+  },
+  {
+    "title": "DeFiVerse-Testnet",
+    "url": "https://scan-testnet.defi-verse.org/",
+    "group": "Testnets",
+    "icon": "https://oasys-blockscout-networks.s3.ap-northeast-1.amazonaws.com/verse-logo/defi.png"
+  },
+  {
+    "title": "XPLA Verse-Mainnet",
+    "url": "https://explorer-xpla-verse.xpla.dev/",
+    "group": "Mainnets",
+    "icon": "https://oasys-blockscout-networks.s3.ap-northeast-1.amazonaws.com/verse-logo/xpla.png"
+  },
+  {
+    "title": "XPLA Verse-Testnet",
+    "url": "https://explorer-xpla-verse-test.xpla.dev/",
+    "group": "Testnets",
+    "icon": "https://oasys-blockscout-networks.s3.ap-northeast-1.amazonaws.com/verse-logo/xpla.png"
+  },
+  {
+    "title": "GEEK Verse-Testnet",
+    "url": "https://explorer-testnet.geekout-pte.com/",
+    "group": "Testnets",
+    "icon": "https://oasys-blockscout-networks.s3.ap-northeast-1.amazonaws.com/verse-logo/geek.png"
+  },
+  {
+    "title": "SG Verse-Mainnet",
+    "url": "https://explorer.sgverse.net/",
+    "group": "Mainnets",
+    "icon": "https://oasys-blockscout-networks.s3.ap-northeast-1.amazonaws.com/verse-logo/sg.png"
+  }
+] 
