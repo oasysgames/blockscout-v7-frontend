@@ -1238,7 +1238,7 @@ export const RESOURCES = {
     path: '/api/v1/celo-election-rewards-csv',
   },
   graphql: {
-    path: '/experiment/api/experiment-graphql',
+    path: '/api/v1/graphql',
   },
   block_countdown: {
     path: '/api',
