@@ -27,14 +27,18 @@ function getParams(): AddEthereumChainParameter {
 export default function useAddChain() {
   const { wallet, provider } = useProvider();
 
-  return React.useCallback(() => {
+  return React.useCallback(async() => {
     if (!wallet || !provider) {
       throw new Error('Wallet or provider not found');
     }
 
-    return provider.request({
-      method: 'wallet_addEthereumChain',
-      params: [ getParams() ],
-    });
+    try {
+      return await provider.request({
+        method: 'wallet_addEthereumChain',
+        params: [ getParams() ],
+      });
+    } catch (error) {
+      console.warn('Error adding chain:', error);
+    }
   }, [ wallet, provider ]);
 }

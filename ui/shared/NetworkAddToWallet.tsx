@@ -4,8 +4,9 @@ import React from 'react';
 import config from 'configs/app';
 import useToast from 'lib/hooks/useToast';
 import * as mixpanel from 'lib/mixpanel/index';
-import useSwitchOrAddChain from 'lib/web3/useSwitchOrAddChain';
+import useAddChain from 'lib/web3/useAddChain';
 import useProvider from 'lib/web3/useProvider';
+import useSwitchChain from 'lib/web3/useSwitchChain';
 import { WALLETS_INFO } from 'lib/web3/wallets';
 import IconSvg from 'ui/shared/IconSvg';
 
@@ -14,7 +15,8 @@ const feature = config.features.web3Wallet;
 const NetworkAddToWallet = () => {
   const toast = useToast();
   const { provider, wallet } = useProvider();
-  const switchOrAddChain = useSwitchOrAddChain();
+  const addChain = useAddChain();
+  const switchChain = useSwitchChain();
 
   const handleClick = React.useCallback(async() => {
     if (!wallet || !provider) {
@@ -22,7 +24,8 @@ const NetworkAddToWallet = () => {
     }
 
     try {
-      await switchOrAddChain();
+      await addChain();
+      await switchChain();
 
       toast({
         position: 'top-right',
@@ -48,7 +51,7 @@ const NetworkAddToWallet = () => {
         isClosable: true,
       });
     }
-  }, [ switchOrAddChain, provider, toast, wallet ]);
+  }, [ addChain, provider, toast, wallet, switchChain ]);
 
   if (!provider || !wallet || !config.chain.rpcUrls.length || !feature.isEnabled) {
     return null;
