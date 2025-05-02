@@ -48,20 +48,20 @@ export function app(): CspDev.DirectiveDescriptor {
       getFeaturePayload(config.features.addressVerification)?.api.endpoint,
       getFeaturePayload(config.features.nameService)?.api.endpoint,
       getFeaturePayload(config.features.addressMetadata)?.api.endpoint,
-      getFeaturePayload(config.features.rewards)?.api.endpoint,
+      // getFeaturePayload(config.features.rewards)?.api.endpoint,
       getFeaturePayload(config.features.experiment)?.api.endpoint,
 
       // chain RPC server
       ...config.chain.rpcUrls,
       ...(getFeaturePayload(config.features.rollup)?.parentChain?.rpcUrls ?? []),
       'https://rpc.mainnet.oasys.games', // In case using bridge, it requires to connect to L1 RPC
-      'https://infragrid.v.network', // RPC providers
+      // 'https://infragrid.v.nestwork', // RPC providers
 
       // github (spec for api-docs page)
-      'raw.githubusercontent.com',
+      // 'raw.githubusercontent.com',
 
       // github api (used for Stylus contract verification)
-      'api.github.com',
+      // 'api.github.com',
     ].filter(Boolean),
 
     'script-src': [
@@ -140,7 +140,7 @@ export function app(): CspDev.DirectiveDescriptor {
       KEY_WORDS.SELF,
 
       // allow remix.ethereum.org to embed our contract page in iframe
-      'remix.ethereum.org',
+      // 'remix.ethereum.org',
     ],
   };
 }
