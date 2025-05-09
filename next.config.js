@@ -55,6 +55,22 @@ const moduleExports = {
   images: {
     domains: ['oasys-blockscout.s3.ap-northeast-1.amazonaws.com'],
   },
+  async rewrites() {
+    return [
+      {
+        source: '/css/:path*',
+        destination: '/css/:path*',
+      },
+      {
+        source: '/images/:path*',
+        destination: '/images/:path*',
+      },
+      {
+        source: '/js/:path*',
+        destination: '/js/:path*',
+      },
+    ];
+  },
 };
 
 module.exports = withBundleAnalyzer(withRoutes(moduleExports));

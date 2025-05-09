@@ -1,9 +1,4 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-const SwaggerUIReact = dynamic(() => import('swagger-ui-react'), {
-  loading: () => <ContentLoader/>,
-  ssr: false,
-});
-
 import type { SystemStyleObject } from '@chakra-ui/react';
 import { Box, useColorModeValue, useToken } from '@chakra-ui/react';
 import dynamic from 'next/dynamic';
@@ -12,7 +7,10 @@ import React from 'react';
 import config from 'configs/app';
 import ContentLoader from 'ui/shared/ContentLoader';
 
-import 'swagger-ui-react/swagger-ui.css';
+const SwaggerUIReact = dynamic(() => import('swagger-ui-react'), {
+  loading: () => <ContentLoader/>,
+  ssr: false,
+});
 
 const feature = config.features.restApiDocs;
 
@@ -133,6 +131,7 @@ const SwaggerUI = () => {
 
   return (
     <Box sx={ swaggerStyle }>
+      <link rel="stylesheet" type="text/css" href="/css/swagger-ui.css" />
       <SwaggerUIReact
         url={ feature.specUrl }
         plugins={ [ NeverShowInfoPlugin ] }
