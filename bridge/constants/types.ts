@@ -8,7 +8,6 @@ export enum ChainId {
   DEFI = 16116,
   YOOLDO = 50006,
   GEEK = 75512,
-  CHAIN = 5555,
   GESO = 428,
 
   OASYS_TESTNET = 9372,

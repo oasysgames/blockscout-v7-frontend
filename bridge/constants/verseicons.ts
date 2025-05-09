@@ -12,7 +12,6 @@ export const CHAINS_ICONS: { [k in ChainId]: string } = {
   [ChainId.DEFI]: '/images/defi.jpeg',
   [ChainId.YOOLDO]: '/images/yooldo.png',
   [ChainId.GEEK]: '/images/geek.jpg',
-  [ChainId.CHAIN]: '/images/chain.svg',
   [ChainId.GESO]: '/images/geso.svg',
 };
 
