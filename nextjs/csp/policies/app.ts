@@ -55,13 +55,13 @@ export function app(): CspDev.DirectiveDescriptor {
       ...config.chain.rpcUrls,
       ...(getFeaturePayload(config.features.rollup)?.parentChain?.rpcUrls ?? []),
       'https://rpc.mainnet.oasys.games', // In case using bridge, it requires to connect to L1 RPC
-      // 'https://infragrid.v.nestwork', // RPC providers
+      'https://infragrid.v.nestwork', // RPC providers
 
       // github (spec for api-docs page)
-      // 'raw.githubusercontent.com',
+      'raw.githubusercontent.com',
 
       // github api (used for Stylus contract verification)
-      // 'api.github.com',
+      'api.github.com',
     ].filter(Boolean),
 
     'script-src': [

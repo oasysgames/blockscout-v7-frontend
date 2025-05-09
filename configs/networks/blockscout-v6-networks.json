@@ -90,12 +90,6 @@
     "icon": "https://oasys-blockscout-networks.s3.ap-northeast-1.amazonaws.com/verse-logo/yooldo.png"
   },
   {
-    "title": "Chainverse-Mainnet",
-    "url": "https://explorer.chainverse.info/",
-    "group": "Mainnets",
-    "icon": "https://oasys-blockscout-networks.s3.ap-northeast-1.amazonaws.com/verse-logo/chain.png"
-  },
-  {
     "title": "DeFiVerse-Mainnet",
     "url": "https://scan.defi-verse.org/",
     "group": "Mainnets",
